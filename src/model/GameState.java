@@ -1,9 +1,15 @@
 package model;
 
-public interface GameState {
+public interface GameState
+{
+
+	public abstract void addStartState();
+
+	public abstract void updateCurrentState();
+
+	public abstract void addUndoAction();
+
+	public abstract void retrieveUndoAction();
 	
-	abstract void addStartState();
-	abstract void updateCurrentState();
-	abstract void addUndoAction();
-	abstract void retrieveUndoAction();
+	public abstract boolean[] getPossibilities(int x, int y);
 }
