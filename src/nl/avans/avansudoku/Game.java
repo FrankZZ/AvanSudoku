@@ -13,7 +13,7 @@ public class Game
 	
 	private boolean[] getPossibilities(int x, int y)
 	{
-		// Standaard alles false, alle mogelijke nummers op true zetten
+		// Standaard alles false, alle onmogelijke nummers op true zetten
 		boolean[] possibilities = new boolean[9];
 		
 		for (int i = 0; i < 9; i++)
