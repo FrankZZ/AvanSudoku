@@ -1,7 +1,10 @@
 package model;
 
+import java.util.Stack;
+
 public class SudokuGameState implements GameState
 {
+	private Stack undoStack;
 
 	@Override
 	public void addStartState()
