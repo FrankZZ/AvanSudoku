@@ -1,44 +1,44 @@
 package nl.avans.avansudoku;
 
-import android.os.Bundle;
 import android.app.Activity;
-import android.view.Menu;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.Toast;
 
-public class MainActivity extends Activity
-{
+public class MainActivity extends Activity {
+  public static final String THEMA = "themaint";
+private EditText text;
 
-	@Override
-	protected void onCreate(Bundle savedInstanceState)
-	{
-		super.onCreate(savedInstanceState);
+  @Override
+  public void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.activity_main);
 
-		setContentView(R.layout.activity_main);
+  }
 
-	}
+  // This method is called at button click because we assigned the name to the
+  // "OnClick property" of the button
+  public void onClick(View view) {
+	  switch(view.getId())
+	  {
+	  }
+  }
+  public void newGame(View view)
+  {
+	  Intent intent = new Intent(this, DifficultySelectActivity.class );
+	  startActivity(intent);
+  }
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu)
-	{
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.main, menu);
-		return true;
-	}
-	
-	/*
-	 * Probeer een spelsituatie op te slaan
-	 */
-	private void trySave()
-	{
-		if (FileManager.save(getApplicationContext()))
-		{
-			Toast.makeText(getApplicationContext(), "Successvol opgeslagen",
-					Toast.LENGTH_LONG).show();
-		}
-		else
-		{
-			Toast.makeText(getApplicationContext(), "Fout opgetreden bij opslaan",
-					Toast.LENGTH_LONG).show();
-		}
-	}
-}
+  // Converts to celsius
+  private float convertFahrenheitToCelsius(float fahrenheit) {
+    return ((fahrenheit - 32) * 5 / 9);
+  }
+
+  // Converts to fahrenheit
+  private float convertCelsiusToFahrenheit(float celsius) {
+    return ((celsius * 9) / 5) + 32;
+  }
+} 
