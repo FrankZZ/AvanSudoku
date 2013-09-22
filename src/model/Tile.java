@@ -5,20 +5,26 @@ package model;
 
 /**
  * @author Rick van Son
- * @version 1.0
- * @since 2013-09-18
+ * @version 1.1
+ * @since 2013-09-22
  * 
  */
 public class Tile
 {
 	private int index;
 
+	private int x;
+
+	private int y;
+
 	private int value;
 
 	private boolean[] candidates;
 
-	public Tile( int index, int number ) throws Throwable
+	public Tile( int x, int y, int index, int number ) throws Throwable
 	{
+		this.setX( x );
+		this.setY( y );
 		this.setIndex( index );
 		this.setValue( value );
 		this.setCandidates( new boolean[9] );
@@ -26,6 +32,50 @@ public class Tile
 		{
 			this.candidates[i] = false;
 		}
+	}
+
+	/**
+	 * @return the x
+	 */
+	public int getX()
+	{
+		return x;
+	}
+
+	/**
+	 * @param x
+	 *            the x to set
+	 * @throws Throwable
+	 */
+	public void setX( int x ) throws Throwable
+	{
+		if( x < 0 || 9 <= x )
+		{
+			throw new Exception( "Oops! Wrong x value: " + x + "!" );
+		}
+		this.x = x;
+	}
+
+	/**
+	 * @return the y
+	 */
+	public int getY()
+	{
+		return y;
+	}
+
+	/**
+	 * @param y
+	 *            the y to set
+	 * @throws Throwable 
+	 */
+	public void setY( int y ) throws Throwable
+	{
+		if( y < 0 || 9 <= y )
+		{
+			throw new Exception( "Oops! Wrong y value: " + y + "!" );
+		}
+		this.y = y;
 	}
 
 	/**
@@ -67,8 +117,8 @@ public class Tile
 	{
 		if( value < 0 || 9 < value )
 		{
-			throw new Exception( "Oops! Wrong value of tile no. "
-					+ this.index + ": "  + value + "!" );
+			throw new Exception( "Oops! Wrong value of tile no. " + this.index
+					+ ": " + value + "!" );
 		}
 		this.value = value;
 	}
@@ -100,7 +150,7 @@ public class Tile
 	 * @return The given candidate of a specific position.
 	 * @param pos
 	 *            the specific position.
-	 * @throws Throwable 
+	 * @throws Throwable
 	 */
 	public boolean getCandidate( int pos ) throws Throwable
 	{
@@ -117,7 +167,7 @@ public class Tile
 	 *            the specific position.
 	 * @param candidate
 	 *            The new candidate of a specific position.
-	 * @throws Throwable 
+	 * @throws Throwable
 	 */
 	public void setCandidate( int pos, boolean candidate ) throws Throwable
 	{
