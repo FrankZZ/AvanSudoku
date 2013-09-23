@@ -1,4 +1,4 @@
-package model;
+package nl.avans.avansudoku.model;
 
 import java.util.Stack;
 

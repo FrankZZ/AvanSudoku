@@ -1,8 +1,6 @@
 package nl.avans.avansudoku;
 
-import nl.avans.avansudoku.R;
 import android.os.Bundle;
-import android.provider.ContactsContract.CommonDataKinds.Im;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;

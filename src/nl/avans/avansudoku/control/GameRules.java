@@ -1,7 +1,7 @@
 /**
  * 
  */
-package control;
+package nl.avans.avansudoku.control;
 
 /**
  * @author Rick van Son

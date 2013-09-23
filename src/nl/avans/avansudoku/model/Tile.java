@@ -1,7 +1,7 @@
 /**
  * 
  */
-package model;
+package nl.avans.avansudoku.model;
 
 /**
  * @author Rick van Son

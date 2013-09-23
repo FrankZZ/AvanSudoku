@@ -1,8 +1,8 @@
-package control;
+package nl.avans.avansudoku.control;
 
-public class SudokuSolver implements GameSolver {
+public class HiddenSingle implements SolverTechnique {
 
-	public SudokuSolver() {
+	public HiddenSingle() {
 		// TODO Auto-generated constructor stub
 	}
 

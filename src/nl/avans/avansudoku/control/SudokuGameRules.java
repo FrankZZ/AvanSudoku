@@ -1,10 +1,10 @@
 /**
  * 
  */
-package control;
+package nl.avans.avansudoku.control;
 
-import model.SudokuGameState;
-import model.Tile;
+import nl.avans.avansudoku.model.SudokuGameState;
+import nl.avans.avansudoku.model.Tile;
 
 /**
  * @author Rick van Son
