@@ -21,7 +21,10 @@ public class Tile
 
 	private boolean[] candidates;
 
-	public Tile( int x, int y, int index, int number ) throws Throwable
+	private boolean locked;
+
+	public Tile( int x, int y, int index, int number, boolean isLocked )
+			throws Throwable
 	{
 		this.setX( x );
 		this.setY( y );
@@ -32,6 +35,7 @@ public class Tile
 		{
 			this.candidates[i] = false;
 		}
+		this.setLocked( isLocked );
 	}
 
 	/**
@@ -67,7 +71,7 @@ public class Tile
 	/**
 	 * @param y
 	 *            the y to set
-	 * @throws Throwable 
+	 * @throws Throwable
 	 */
 	public void setY( int y ) throws Throwable
 	{
@@ -179,4 +183,15 @@ public class Tile
 		this.candidates[pos] = candidate;
 	}
 
+	public boolean isLocked()
+	{
+		return this.locked;
+
+	}
+
+	public void setLocked( boolean isLocked )
+	{
+		this.locked = isLocked;
+
+	}
 }

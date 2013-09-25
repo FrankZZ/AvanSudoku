@@ -32,7 +32,7 @@ public class SudokuGameState implements GameState
 	{
 		// TODO Auto-generated method stub
 
-		return new Tile( 0, 0, 0, 1 );
+		return new Tile( 0, 0, 0, 1, false );
 
 	}
 
