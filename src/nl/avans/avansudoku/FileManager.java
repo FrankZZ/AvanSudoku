@@ -2,12 +2,18 @@ package nl.avans.avansudoku;
 
 import java.io.IOException;
 import java.io.OutputStreamWriter;
+
+import org.json.JSONObject;
+
 import android.content.Context;
 import android.util.Log;
 
+
+
 class FileManager
 {
-
+	private final static String DELIM = "|";
+	
 	static String	_fileName	= "avansudoku.txt";
 
 	//Example array
@@ -26,6 +32,8 @@ class FileManager
 
 	public static boolean save(Context context)
 	{
+		String str = "";
+		
 		try
 		{
 			// File writer openen in current context. MODE_PRIVATE: Alleen de huidige applicatie kan deze data openen
@@ -41,9 +49,12 @@ class FileManager
 				for (int c = 0; c < row.length; c++)
 				{
 					double col = row[c];
-
-					// Bij eerste rij en eerste kolom GEEN ; teken prependen
-					outputStreamWriter.write( (r == 0 && c == 0 ? "" : ";") + Double.toString(col) );
+					String strcol = (r == 0 && c == 0 ? "" : DELIM) + Double.toString(col);
+					
+					str += strcol;
+					
+					// Bij eerste rij en eerste kolom GEEN delimiter teken prependen
+					outputStreamWriter.write(strcol);
 				}
 			}
 			outputStreamWriter.close();
@@ -53,6 +64,8 @@ class FileManager
 			Log.e("Exception", "Error occured " + e.toString());
 			return false;
 		}
+		
+		//Log.d("DEBUG", str.toString());
 		
 		return true;
 
