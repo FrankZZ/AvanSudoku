@@ -23,6 +23,22 @@ public class Tile
 
 	private boolean locked;
 
+	public Tile( int x, int y, int number, boolean isLocked )
+			throws Throwable
+	{
+		this.setX( x );
+		this.setY( y );
+		this.setIndex( index );
+		this.setValue( value );
+		this.setCandidates( new boolean[9] );
+		for( int i = 0; i < candidates.length; i++ )
+		{
+			this.candidates[i] = false;
+		}
+		this.setLocked( isLocked );
+	}
+
+	
 	public Tile( int x, int y, int index, int number, boolean isLocked )
 			throws Throwable
 	{

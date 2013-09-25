@@ -5,53 +5,54 @@ import java.util.Stack;
 
 public class SudokuGameState implements GameState
 {
-	private int[] _tiles = new int[9 * 9];
-	
-	private Tile[] _startTiles;
-	private Stack<Tile> _undoStack;
+	private int[] tiles = new int[9 * 9];
+
+	private Tile[] startTiles;
+	private Stack<Tile> undoStack;
 
 	@Override
-	public SudokuGameState addStartState(Tile[] tiles)
+	public SudokuGameState addStartState( Tile[] tiles )
 	{
 		// Start state
-		if (this._startTiles == null)
+		if( this.startTiles == null )
 		{
-			this._startTiles = tiles;
+			this.startTiles = tiles;
 		}
-		
+
 		return this;
 	}
 
 	@Override
-	public SudokuGameState updateCurrentState(Tile tile) throws EmptyStackException
+	public SudokuGameState updateCurrentState( Tile tile )
+			throws EmptyStackException
 	{
 		// De bovenste op de stack updaten.
-		if (_undoStack.peek() != null)
+		if( undoStack.peek() != null )
 		{
-			_undoStack.pop();
-			_undoStack.add(tile);
+			undoStack.pop();
+			undoStack.add( tile );
 		}
-		
+
 		return this;
 	}
 
 	@Override
-	public SudokuGameState addUndoAction(Tile tile)
+	public SudokuGameState addUndoAction( Tile tile )
 	{
 		// Toevoegen bovenop de stack.
-		_undoStack.add(tile);
-		
+		undoStack.add( tile );
+
 		return this;
 	}
 
 	@Override
 	public SudokuGameState resetToStartState()
 	{
-		_undoStack.clear();
-		
+		undoStack.clear();
+
 		return this;
 	}
-	
+
 	@Override
 	public Tile retrieveUndoAction() throws Throwable
 	{
@@ -60,7 +61,12 @@ public class SudokuGameState implements GameState
 
 	private int getTile( int x, int y )
 	{
-		return _tiles[( y * 9 ) + x];
+		return tiles[( y * 9 ) + x];
+	}
+
+	public void setTile( Tile editedTile )
+	{
+		this.startTiles[editedTile.getIndex()] = editedTile;
 	}
 
 	public boolean[] getPossibilities( int x, int y )
@@ -128,16 +134,16 @@ public class SudokuGameState implements GameState
 	}
 
 	@Override
-	public Tile[] getBlock(int x, int y)
+	public Tile[] getBlock( int x, int y )
 	{
-		@SuppressWarnings("unused")
-		int index = (y * 9) + x;
-		
-		/* if (_tiles.length >= index)
-		{
-			getPossibilities moet Tile array[] returnen.
-		} */
-		
+		@SuppressWarnings( "unused" )
+		int index = ( y * 9 ) + x;
+
+		/*
+		 * if (tiles.length >= index) { getPossibilities moet Tile array[]
+		 * returnen. }
+		 */
+
 		return null;
 	}
 
@@ -145,5 +151,11 @@ public class SudokuGameState implements GameState
 	public void setBlock( int atX, int atY, Tile[] modifiedTiles )
 	{
 		// Stub
+	}
+
+	public int getRandomOption( int x, int y )
+	{
+		// TODO Auto-generated method stub
+		return 0;
 	}
 }

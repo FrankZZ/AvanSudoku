@@ -26,6 +26,7 @@ public class SudokuGameRules extends GameRules
 	public static final int DEFAULT_MAX_VALUE = 9;
 	public static final int DEFAULT_MIN_INDEX_VALUE = 0;
 	public static final int DEFAULT_MAX_INDEX_VALUE = 80;
+	public static final int DEFAULT_AMOUNT_OF_TILES = 81;
 
 	public SudokuGameRules()
 	{
