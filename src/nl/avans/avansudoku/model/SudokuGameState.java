@@ -1,14 +1,16 @@
 package nl.avans.avansudoku.model;
 
+import java.util.ArrayList;
 import java.util.EmptyStackException;
+import java.util.Random;
 import java.util.Stack;
 
 public class SudokuGameState implements GameState
 {
-	private int[] tiles = new int[9 * 9];
-
-	private Tile[] startTiles;
-	private Stack<Tile> undoStack;
+	private int[] _tiles = new int[9 * 9];
+	
+	private Tile[] _startTiles;
+	private Stack<Tile> _undoStack;
 
 	@Override
 	public SudokuGameState addStartState( Tile[] tiles )
@@ -59,54 +61,95 @@ public class SudokuGameState implements GameState
 		return new Tile( 0, 0, 0, 1, false );
 	}
 
-	private int getTile( int x, int y )
+	public void setTile(int x, int y, int tile)
 	{
-		return tiles[( y * 9 ) + x];
+		_tiles[(y * 9) + x] = tile;
+	}
+	
+	private int getTile(int x, int y)
+	{
+		return _tiles[( y * 9 ) + x];
 	}
 
-	public void setTile( Tile editedTile )
+	public ArrayList<Integer> getPossibilities(int x, int y)
 	{
-		this.startTiles[editedTile.getIndex()] = editedTile;
-	}
-
-	public boolean[] getPossibilities( int x, int y )
-	{
-		// Standaard alles false, alle onmogelijke nummers op true zetten
+		// Alle gebruikte tiles op true
 		boolean[] possibilities = new boolean[9];
+		Integer tileIdx = 0;
 
-		for( int i = 0; i < 9; i++ )
+		for (int i = 0; i < 9; i++)
 		{
-			int tileX = getTile( i, y );
-			int tileY = getTile( x, i );
+			int tileX = getTile(i, y);
+			int tileY = getTile(x, i);
 
 			// Niet zichzelf tegenkomen en tile niet leeg
-			if( i != x && tileX > 0 )
+			if (i != x && tileX > 0)
+			{
 				possibilities[tileX - 1] = true;
-
-			if( i != y && tileY > 0 )
+				tileIdx++;
+			}
+			if (i != y && tileY > 0)
+			{
 				possibilities[tileY - 1] = true;
+				tileIdx++;
+			}
+			
 		}
 
-		int blockStartX = ( x / 3 ) * 3;
-		int blockStartY = ( y / 3 ) * 3;
-
-		for( int xx = blockStartX; xx < blockStartX + 3; xx++ )
+		int blockStartX = (x / 3) * 3;
+		int blockStartY = (y / 3) * 3;
+		
+		
+		
+		for (int xx = blockStartX; xx < blockStartX + 3; xx++)
 		{
-			for( int yy = blockStartY; yy < blockStartY + 3; yy++ )
+			for (int yy = blockStartY; yy < blockStartY + 3; yy++)
 			{
 				// Niet zichzelf tegenkomen
-				if( xx == x && yy == y )
+				if (xx == x && yy == y)
 					continue;
 
-				int tile = getTile( xx, yy );
+				int tile = getTile(xx, yy);
 
 				// Tile niet leeg
-				if( tile > 0 )
+				if (tile > 0)
+				{
 					possibilities[tile - 1] = true;
+					tileIdx++;
+				}
 			}
 		}
-
-		return possibilities;
+		
+		// Vertalen naar array met ONgebruikte tiles
+		ArrayList<Integer> arr = new ArrayList<Integer>();
+		
+		
+		for (int i = 0; i < possibilities.length; i++)
+		{
+			boolean p = possibilities[i];
+			
+			if (p == false)
+			{
+				arr.add(i + 1);
+			}	
+		}
+		//Log.e("arl", arr.size() + "");
+		
+		return arr;
+	}
+	
+	public int getRandomOption(int x, int y) throws Exception
+	{
+		ArrayList<Integer> poss = getPossibilities(x, y);
+		
+		Random randomGenerator = new Random();
+		
+		if (poss.size() == 0)
+			throw new Exception("ERROR NO POSSIBILITIES, UNDO! " + x + " " + y);
+		
+		int randomInt = randomGenerator.nextInt(poss.size());
+		
+		return poss.get(randomInt);
 	}
 
 	@Override

@@ -16,8 +16,10 @@ public class Game
 	public Game( Context ctx )
 	{
 		this.ctx = ctx;
-
-		for( int i = 0; i < 100; i++ )
+		
+		
+		
+		for (int i = 0; i < 100; i++)
 		{
 			long start = System.currentTimeMillis();
 
@@ -80,6 +82,7 @@ public class Game
 //					gameState.setTile( new Tile( xx, yy, 0, true ) );
 
 				}
+				
 				timesReverted++;
 				continue;
 
