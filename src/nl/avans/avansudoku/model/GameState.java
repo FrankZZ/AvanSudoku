@@ -1,13 +1,17 @@
 package nl.avans.avansudoku.model;
 
+import java.util.EmptyStackException;
+
 public interface GameState
 {
 
-	public abstract void addStartState();
+	public abstract SudokuGameState addStartState(Tile[] game);
 
-	public abstract void updateCurrentState();
+	public abstract SudokuGameState updateCurrentState(Tile tile) throws EmptyStackException;
 
-	public abstract void addUndoAction();
+	public abstract SudokuGameState addUndoAction(Tile tile);
+	
+	public abstract SudokuGameState resetToStartState();
 
 	public abstract Tile retrieveUndoAction() throws Throwable;
 

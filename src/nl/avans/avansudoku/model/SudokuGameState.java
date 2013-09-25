@@ -1,43 +1,62 @@
 package nl.avans.avansudoku.model;
 
+import java.util.EmptyStackException;
 import java.util.Stack;
 
 public class SudokuGameState implements GameState
 {
-	private Stack<Tile> undoStack;
+	private int[] _tiles = new int[9 * 9];
+	
+	private Tile[] _startTiles;
+	private Stack<Tile> _undoStack;
 
 	@Override
-	public void addStartState()
+	public SudokuGameState addStartState(Tile[] tiles)
 	{
-		// TODO Auto-generated method stub
-
+		// Start state
+		if (this._startTiles == null)
+		{
+			this._startTiles = tiles;
+		}
+		
+		return this;
 	}
 
 	@Override
-	public void updateCurrentState()
+	public SudokuGameState updateCurrentState(Tile tile) throws EmptyStackException
 	{
-		// TODO Auto-generated method stub
-
+		// De bovenste op de stack updaten.
+		if (_undoStack.peek() != null)
+		{
+			_undoStack.pop();
+			_undoStack.add(tile);
+		}
+		
+		return this;
 	}
 
 	@Override
-	public void addUndoAction()
+	public SudokuGameState addUndoAction(Tile tile)
 	{
-		// TODO Auto-generated method stub
-
+		// Toevoegen bovenop de stack.
+		_undoStack.add(tile);
+		
+		return this;
 	}
 
+	@Override
+	public SudokuGameState resetToStartState()
+	{
+		_undoStack.clear();
+		
+		return this;
+	}
+	
 	@Override
 	public Tile retrieveUndoAction() throws Throwable
 	{
-		// TODO Auto-generated method stub
-
 		return new Tile( 0, 0, 0, 1 );
-
 	}
-
-	// 9 bij 9 blokken = 81 plaatsen
-	private int[] _tiles = new int[9 * 9];
 
 	private int getTile( int x, int y )
 	{
@@ -87,43 +106,44 @@ public class SudokuGameState implements GameState
 	@Override
 	public Tile[] getRow( int atX )
 	{
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public void setRow( int atX, Tile[] modifiedTiles )
 	{
-		// TODO Auto-generated method stub
-
+		// Stub
 	}
 
 	@Override
 	public Tile[] getColumn( int atY )
 	{
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public void setColumn( int atY, Tile[] modifiedTiles )
 	{
-		// TODO Auto-generated method stub
-
+		// Stub
 	}
 
 	@Override
-	public Tile[] getBlock( int atX, int atY )
+	public Tile[] getBlock(int x, int y)
 	{
-		// TODO Auto-generated method stub
+		@SuppressWarnings("unused")
+		int index = (y * 9) + x;
+		
+		/* if (_tiles.length >= index)
+		{
+			getPossibilities moet Tile array[] returnen.
+		} */
+		
 		return null;
 	}
 
 	@Override
 	public void setBlock( int atX, int atY, Tile[] modifiedTiles )
 	{
-		// TODO Auto-generated method stub
-
+		// Stub
 	}
-
 }
