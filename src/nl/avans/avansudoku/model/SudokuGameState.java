@@ -55,14 +55,7 @@ public class SudokuGameState implements GameState
 	@Override
 	public Tile retrieveUndoAction() throws Throwable
 	{
-<<<<<<< HEAD
-		// TODO Auto-generated method stub
-
 		return new Tile( 0, 0, 0, 1, false );
-
-=======
-		return new Tile( 0, 0, 0, 1 );
->>>>>>> 93f5f27407092d96b8a11ad28c195d5aaeb83419
 	}
 
 	private int getTile( int x, int y )
