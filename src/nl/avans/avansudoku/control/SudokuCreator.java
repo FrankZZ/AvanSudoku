@@ -1,5 +1,7 @@
 package nl.avans.avansudoku.control;
 
+import nl.avans.avansudoku.model.SudokuGameState;
+
 
 public class SudokuCreator implements GameCreator
 {
@@ -8,9 +10,52 @@ public class SudokuCreator implements GameCreator
 	@Override
 	public void CreateGame()
 	{
-		//sudokuContent = new int[81];
+		SudokuGameState gameState = new SudokuGameState();
+
 		
-		//for debug purposes
+		
+		// Toast.makeText(ctx, str, Toast.LENGTH_LONG).show();
+	}
+	
+	private SudokuGameState generateTiles(SudokuGameState gameState)
+	{
+		int 	i=0, 
+				timesReverted = 0;
+		
+		while (i < (9 * 9) && timesReverted < 3)
+		{
+			int x = i % 9;
+			int y = i / 9;
+			
+			Integer poss;
+			try
+			{
+				poss = gameState.getRandomOption(x, y);
+				gameState.setTile(x, y, poss);
+			}
+			catch (Exception e)
+			{
+				
+				// failed dus 3 stapjes terug
+				
+				for (int j = 0; j < 3; j++)
+				{
+					
+					i--;
+					int xx = i % 9;
+					int yy = i / 9;
+					gameState.setTile(xx, yy, 0);
+					
+				}
+				
+				timesReverted++;
+				continue;
+				
+			}
+			i++;
+		}
+		
+		return gameState;
 	}
 
 }
