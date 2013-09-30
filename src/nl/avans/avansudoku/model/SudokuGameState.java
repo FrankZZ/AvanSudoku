@@ -58,7 +58,7 @@ public class SudokuGameState implements GameState
 	@Override
 	public Tile retrieveUndoAction() throws Throwable
 	{
-		return new Tile( 0, 0, 0, 1, false );
+		return new Tile( 0, 0, 0, 1, false, 1 );
 	}
 
 	public void setTile( int x, int y, Tile tile )
@@ -135,7 +135,7 @@ public class SudokuGameState implements GameState
 		return arr;
 	}
 
-	public int getRandomOption( int x, int y ) throws Exception
+	public int getRandomOption( int x, int y ) throws Throwable
 	{
 		ArrayList<Integer> poss = getPossibilities( x, y );
 
@@ -176,15 +176,86 @@ public class SudokuGameState implements GameState
 	@Override
 	public Tile[] getBlock( int x, int y )
 	{
-		@SuppressWarnings( "unused" )
 		int index = ( y * 9 ) + x;
 
 		/*
 		 * if (tiles.length >= index) { getPossibilities moet Tile array[]
-		 * returnen. }
+		 * returnen. } 
+		 * ??? WHAAAAT do you mean?? :S
 		 */
 
-		return null;
+		ArrayList<Tile> temp = new ArrayList<Tile>();
+
+		// Let's get the index of the upper left corder of this block:
+		index = this.upperLeftCornerIndex( index );
+
+		for( int i = 0; i < 9; i++ )
+		{
+			if( i % 3 == 0 )
+			{
+				if( i != 0 )
+				{
+					index += 7;
+				}
+			}
+			else
+			{
+				index++;
+			}
+			temp.add( tiles[index] );
+		}
+
+		Tile[] fixedTemp = new Tile[9];
+
+		for( int i = 0; i < temp.size(); i++ )
+		{
+			fixedTemp[i] = temp.get( i );
+
+		}
+		return fixedTemp;
+	}
+
+	/**
+	 * @return The index of upper left corner cell of the Block of the given index.
+	 * @param index
+	 */
+	private int upperLeftCornerIndex( int index )
+	{
+		{
+			int x, y;
+			
+			// First the X:
+			x = index % 9;
+			if( x < 3 )
+			{
+				x = 0;
+			}
+			else if( x > 5 )
+			{
+				x = 2;
+			}
+			else
+			{
+				x = 1;
+			}
+			
+			// Now the Y:
+			y = index / 9;
+			if( y < 3 )
+			{
+				y = 0;
+			}
+			else if( y > 5 )
+			{
+				y = 2;
+			}
+			else
+			{
+				y = 1;
+			}
+			
+			return ( x * 3 ) + ( y * 27 );
+		}
 	}
 
 	@Override

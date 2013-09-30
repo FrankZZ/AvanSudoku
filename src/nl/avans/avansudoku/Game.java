@@ -64,7 +64,7 @@ public class Game
 			try
 			{
 				poss = gameState.getRandomOption( x, y );
-				gameState.setTile( x, y, new Tile( x, y, poss.intValue(), true ) );
+				gameState.setTile( x, y, new Tile( x, y, poss.intValue(), true, 1 ) );
 				str += poss;
 			}
 			catch( Exception e )

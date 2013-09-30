@@ -5,8 +5,8 @@ package nl.avans.avansudoku.model;
 
 /**
  * @author Rick van Son
- * @version 1.1
- * @since 2013-09-22
+ * @version 1.2
+ * @since 2013-09-29
  * 
  */
 public class Tile
@@ -22,13 +22,15 @@ public class Tile
 	private boolean[] candidates;
 
 	private boolean locked;
+	
+	private int correctValue;
 
-	public Tile( int x, int y, int number, boolean isLocked )
+	public Tile( int x, int y, int value, boolean isLocked, int correctValue )
 			throws Throwable
 	{
 		this.setX( x );
 		this.setY( y );
-		this.setIndex( index );
+		this.setIndex( ( y * 9 ) + x );
 		this.setValue( value );
 		this.setCandidates( new boolean[9] );
 		for( int i = 0; i < candidates.length; i++ )
@@ -36,10 +38,11 @@ public class Tile
 			this.candidates[i] = false;
 		}
 		this.setLocked( isLocked );
+		this.setCorrectValue( correctValue );
 	}
 
 	
-	public Tile( int x, int y, int index, int number, boolean isLocked )
+	public Tile( int x, int y, int index, int value, boolean isLocked, int correctValue )
 			throws Throwable
 	{
 		this.setX( x );
@@ -52,6 +55,7 @@ public class Tile
 			this.candidates[i] = false;
 		}
 		this.setLocked( isLocked );
+		this.setCorrectValue( correctValue );
 	}
 
 	/**
@@ -209,5 +213,29 @@ public class Tile
 	{
 		this.locked = isLocked;
 
+	}
+
+
+	/**
+	 * @return the correctValue
+	 */
+	public int getCorrectValue()
+	{
+		return correctValue;
+	}
+
+
+	/**
+	 * @param correctValue the correctValue to set
+	 * @throws Throwable 
+	 */
+	public void setCorrectValue( int correctValue ) throws Throwable
+	{
+		if( correctValue < 1 || 9 < correctValue )
+		{
+			throw new Exception( "Oops! Wrong correctValue of tile no. " + this.index
+					+ ": " + correctValue + "!" );
+		}
+		this.correctValue = correctValue;
 	}
 }
