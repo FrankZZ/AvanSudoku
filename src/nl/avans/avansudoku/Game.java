@@ -1,76 +1,104 @@
 package nl.avans.avansudoku;
 
+import nl.avans.avansudoku.model.SudokuGameState;
+import nl.avans.avansudoku.model.Tile;
+import android.content.Context;
+import android.util.Log;
+import android.widget.Toast;
 
 public class Game
 {
-	// 9 bij 9 blokken = 81 plaatsen
-	private int[] _tiles = new int[9 * 9];
-	
-	public Game()
+
+	private Context ctx;
+	private int count = 0;
+	private boolean done = false;
+
+	public Game( Context ctx )
 	{
-		for (int i = 0; i < 9; i++)
+		this.ctx = ctx;
+		
+		
+		
+		for (int i = 0; i < 100; i++)
 		{
-			for (int j = 0; j < 9; j++)
+			long start = System.currentTimeMillis();
+
+			while( done == false )
 			{
-				boolean[] poss = getPossibilities((i * j), (j * i));
-				
-				for (int k = 0; k < 9; k++)
+				try
 				{
-					if (poss[k])
-					{
-						System.out.println(k + ": true");
-					}
+					startGame();
+					count++;
 				}
-			}
-		}
-	}
-	
-	private int getTile(int x, int y)
-	{
-		return _tiles[(y * 9) + x];
-	}
-	
-	private boolean[] getPossibilities(int x, int y)
-	{
-		boolean[] possibilities = new boolean[9];
-		
-		for (int i = 0; i < 9; i++)
-		{
-			int tileX = getTile(i, y);
-			int tileY = getTile(x, i);
-			
-			if (i != x && tileX > 0)
-			{
-				possibilities[tileX - 1] = true;
-			}
-			
-			if (i != y && tileY > 0)
-			{
-				possibilities[tileY - 1] = true;
-			}
-		}
-		
-		int blockStartX = (x / 3) * 3;
-		int blockStartY = (y / 3) * 3;
-		
-		for (int xx = blockStartX; xx < blockStartX + 3; xx++)
-		{
-			for (int yy = blockStartY; yy < blockStartY + 3; yy++)
-			{
-				if (xx == x && yy == y)
+				catch( Throwable e )
 				{
-					continue;
+					// TODO Auto-generated catch block
+					e.printStackTrace();
 				}
 				
-				int tile = getTile(xx, yy);
-				
-				if (tile > 0)
-				{
-					possibilities[tile - 1] = true;
-				}
+
 			}
+			Log.i( "SUDOKU SOLVED ", "Took me "
+					+ ( System.currentTimeMillis() - start ) + "ms in " + count
+					+ " tries." );
+			count = 0;
+			done = false;
 		}
-		
-		return possibilities;
+
 	}
+
+	public void startGame() throws Throwable
+	{
+		SudokuGameState gameState = new SudokuGameState();
+		String str = "";
+
+		int i = 0;
+		int timesReverted = 0;
+
+		while( i < ( 9 * 9 ) && timesReverted < 3 )
+		{
+			int x = i % 9;
+			int y = i / 9;
+
+			Integer poss;
+			try
+			{
+				poss = gameState.getRandomOption( x, y );
+				gameState.setTile( x, y, new Tile( x, y, poss.intValue(), true, 1 ) );
+				str += poss;
+			}
+			catch( Exception e )
+			{
+				// Log.e("Failure", "Collission detected. Tried " +
+				// timesReverted + " already");
+
+				// failed dus 3 stapjes terug
+
+				for( int j = 0; j < 3; j++ )
+				{
+					i--;
+					int xx = i % 9;
+					int yy = i / 9;
+//					gameState.setTile( new Tile( xx, yy, 0, true ) );
+
+				}
+				
+				timesReverted++;
+				continue;
+
+			}
+			str += "\n";
+
+			i++;
+		}
+
+		// System.out.println(str);
+		// Log.d("STATE", str);
+
+		if( timesReverted < 3 )
+			done = true;
+
+		// Toast.makeText(ctx, str, Toast.LENGTH_LONG).show();
+	}
+
 }

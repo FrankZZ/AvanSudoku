@@ -1,10 +1,10 @@
 /**
  * 
  */
-package control;
+package nl.avans.avansudoku.control;
 
-import model.GameState;
-import model.SudokuGameState;
+import nl.avans.avansudoku.model.GameState;
+import nl.avans.avansudoku.model.SudokuGameState;
 
 
 /**

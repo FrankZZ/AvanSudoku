@@ -1,4 +1,4 @@
-package control;
+package nl.avans.avansudoku.control;
 
 
 public interface GameCreator
