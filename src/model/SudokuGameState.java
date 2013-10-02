@@ -4,7 +4,9 @@ import java.util.Stack;
 
 public class SudokuGameState implements GameState
 {
-	private Stack undoStack;
+	private Stack<Tile> undoStack;
+	private Tile[] tiles = new Tile[81];
+	private Tile[] startTiles = new Tile[81];
 
 	@Override
 	public void addStartState()
@@ -14,24 +16,51 @@ public class SudokuGameState implements GameState
 	}
 
 	@Override
-	public void updateCurrentState()
+	public void setStartState( double[] tileLijst) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public Tile[] getStartState()
+	{
+		return startTiles;
+	}
+	@Override
+	public Boolean updateCurrentState(double[] tileLijst)
 	{
 		// TODO Auto-generated method stub
-
+		for (int i = 0; i < tileLijst.length; i++) 
+		{
+			tiles[i] = new Tile(i, tileLijst[i]);
+		}
+		// als mogelijk
+		return true;
 	}
 
 	@Override
-	public void addUndoAction()
+	public Boolean checkNewState(double[] tileLijst, Tile tile) {
+		// TODO Auto-generated method stub
+		return true;
+	}
+	@Override
+	public Tile askHintAction()
+	{
+		return new Tile(2,5);		
+	}
+	@Override
+	public void addUndoAction(Tile prev)
 	{
 		// TODO Auto-generated method stub
-
+		undoStack.push(prev);
 	}
 
 	@Override
-	public void retrieveUndoAction()
+	public Tile retrieveUndoAction()
 	{
-		// TODO Auto-generated method stub
-
+		if(undoStack.isEmpty())
+		return undoStack.pop();
+		else
+			return null;
 	}
 
 	// 9 bij 9 blokken = 81 plaatsen
@@ -81,5 +110,4 @@ public class SudokuGameState implements GameState
 
 		return possibilities;
 	}
-
 }

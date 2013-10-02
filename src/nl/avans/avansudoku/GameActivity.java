@@ -1,8 +1,10 @@
 package nl.avans.avansudoku;
 
+import control.SudokuCreator;
+import model.SudokuGameState;
+import model.Tile;
 import nl.avans.avansudoku.R;
 import android.os.Bundle;
-import android.provider.ContactsContract.CommonDataKinds.Im;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
@@ -28,6 +30,8 @@ public class GameActivity extends Activity {
 
 	double[] sudokuveld = new double[81];
 	private int vak0ID;
+	SudokuGameState sudokugamestate = new SudokuGameState();
+	SudokuCreator sudokucreater = new SudokuCreator();
 	
 	int theme = 0;
 	int[] symbols = new int[10]; 
@@ -45,13 +49,17 @@ public class GameActivity extends Activity {
 		String message = intent.getStringExtra(DifficultySelectActivity.Difficulty_Text);
 		TextView mTextView = (TextView) findViewById(R.id.Sudokunaam);
 		mTextView.setText(message);
-		setSymbols();
-		for(int idx = 0; idx < 81; idx++)
+		int load = Integer.parseInt(intent.getStringExtra(MainActivity.Loaded));
+		if(load == 1)
 		{
-			sudokuveld[idx] = 0;
+			LoadSudoku();
+		}
+		setSymbols();
+		for (int i = 0; i < sudokuveld.length; i++) {
+			sudokuveld[i] = 0;
 		}
 		vak0ID = ((ImageView) findViewById(R.id.v00)).getId();
-		randomInvulling();
+		NewSudoku();
 	}
 
 	@SuppressLint("NewApi")
@@ -82,7 +90,17 @@ public class GameActivity extends Activity {
 		}
 		return true;
 	}
-	
+	private void LoadSudoku()
+	{
+		
+	}
+	private void NewSudoku()
+	{
+		//sudokuveld = 
+		sudokucreater.CreateGame(); // geeft hopelijk iets terug
+		sudokugamestate.setStartState(sudokuveld);
+		redrawSudokuAll();
+	}
 	public boolean onOptionsItemSelected(MenuItem item) {
 	    // Handle presses on the action bar items
 		item.getItemId();
@@ -104,25 +122,23 @@ public class GameActivity extends Activity {
 	}
 	public void Undo(View view)
 	{
-		
+		Tile undo = sudokugamestate.retrieveUndoAction();
+		if(undo != null)
+		{
+			int vak = undo.getIndex();
+			double waarde = undo.getValue();
+			sudokuveld[vak]= waarde;
+			redrawSudokuOne(vak);
+		}
 	}
 	public void Hint(View view)
 	{
-		boolean hintgevonden = false;
-		while(!hintgevonden)
-		{
-			int vak = (int) (Math.random()*81);
-			int waarde = (int) (Math.random()*9 + 1);
-			if(sudokuveld[vak] == 0)
-			{
-				if(checkSudoku(vak, waarde))
-				{
-					sudokuveld[vak]= waarde+40;
-					redrawSudokuOne(vak);
-					hintgevonden = true;
-				}
-			}
-		}
+		Tile hint = sudokugamestate.askHintAction();
+		
+		int vak = hint.getIndex();
+		double waarde = hint.getValue();
+		sudokuveld[vak]= waarde+40;
+		redrawSudokuOne(vak);					
 	}
 	public void GrootteAanpassen(View view)
 	{
@@ -138,17 +154,10 @@ public class GameActivity extends Activity {
 			groot = true;
 		}
 	}
-	private void randomInvulling()
-	{ 
-		int max = (int) (Math.random()*9);
-		for(int i = 0; i < 4+max; i++)
-		{
-			int vak = (int) (Math.random()*81);
-			int waarde = (int) (Math.random()*9 + 1);
-			if(checkSudoku(vak, waarde)) sudokuveld[vak]= waarde+10;
-			else i--;
-		}
-		redrawSudokuAll();
+	private void updateState(int locatie)
+	{
+		if(sudokugamestate.updateCurrentState(sudokuveld))
+			redrawSudokuOne(locatie);
 	}
 	private void setSymbols()
 	{
@@ -195,7 +204,9 @@ public class GameActivity extends Activity {
 			}
 			else if(waarde >= 20)
 			{
+				if(waarde %1 != 0.0)
 				imageview.setImageDrawable(selectedChalk(symbols[(int)waarde-20]));
+				else  imageview.setImageDrawable(selectedSmallChalk(symbols[(int)waarde-20],waarde));
 			}
 			else if(waarde >= 10)
 			{
@@ -203,7 +214,9 @@ public class GameActivity extends Activity {
 			}
 			else 
 			{
+				if(waarde == 0.0)
 				imageview.setImageResource(symbols[(int)waarde]);
+				else  imageview.setImageDrawable(smallChalk(symbols[(int)waarde],waarde));
 			}
 		}
 		((ImageView) findViewById(R.id.c1)).setImageResource(symbols[1]);
@@ -216,7 +229,8 @@ public class GameActivity extends Activity {
 		((ImageView) findViewById(R.id.c8)).setImageResource(symbols[8]);
 		((ImageView) findViewById(R.id.c9)).setImageResource(symbols[9]);
 		
-	}private void redrawSudokuOne(int index)
+	}
+	private void redrawSudokuOne(int index)
 	{		
 		ImageView imageview = (ImageView) findViewById(vak0ID+index);
 		double waarde = sudokuveld[index];
@@ -230,9 +244,9 @@ public class GameActivity extends Activity {
 		}
 		else if(waarde >= 20)
 		{
-			if(waarde %1 == 0)
+			if(waarde %1 == 0.0)
 			imageview.setImageDrawable(selectedChalk(symbols[(int)waarde-20]));
-			else  imageview.setImageDrawable(selectedSmallChalk(symbols[(int)waarde-20]));
+			else  imageview.setImageDrawable(selectedSmallChalk(symbols[(int)waarde-20],waarde));
 		}
 		else if(waarde >= 10)
 		{
@@ -240,25 +254,38 @@ public class GameActivity extends Activity {
 		}
 		else 
 		{
-			if(waarde %1 == 0)
+			if(waarde %1 == 0.0)
 				imageview.setImageResource(symbols[(int)waarde]);
-			else  imageview.setImageDrawable(smallChalk(symbols[(int)waarde]));
+			else  imageview.setImageDrawable(smallChalk(symbols[(int)waarde],waarde));
 		}
 	}
-	private BitmapDrawable smallChalk(int chalk)
+	private BitmapDrawable smallChalk(int chalk, double waarde)
 	{
 		Bitmap bg = BitmapFactory.decodeResource(getResources(), chalk);
 		Bitmap out = Bitmap.createBitmap(bg);
 		Bitmap outc = out.copy(Bitmap.Config.ARGB_8888, true);
 		Canvas combo = new Canvas(outc);
-		Paint paint = new Paint();
-		paint.setColor(Color.RED);
-		paint.setStyle(Style.STROKE);
-		paint.setStrokeWidth(5);
-		combo.drawRoundRect(new RectF(0, 0, outc.getWidth(), outc.getHeight()) ,3, 3, paint);
+		waarde = waarde %1;
+		int breed = bg.getWidth();
+		int hoog = bg.getHeight();
+		for(int idx =0; idx < 9; idx++)
+		{
+			waarde = waarde * 10;
+			int value = (int) waarde%10;
+			if(value != 0)
+			{
+				Bitmap fg = BitmapFactory.decodeResource(getResources(), symbols[value]);
+				float left = ((value-1)%3)*(breed/3);
+				float top = ((value-1)/3)*(hoog/3);
+				int b = breed/3;
+				int h = hoog/3;
+				fg = Bitmap.createScaledBitmap(fg, b, h, false);
+				combo.drawBitmap(fg, left, top, null);
+			}
+		}		
 		return new BitmapDrawable(getResources(), outc);
 	}
-	private BitmapDrawable selectedSmallChalk(int chalk)
+	private BitmapDrawable selectedSmallChalk(int chalk, double waarde)
 	{
 		Bitmap bg = BitmapFactory.decodeResource(getResources(), chalk);
 		Bitmap out = Bitmap.createBitmap(bg);
@@ -267,7 +294,24 @@ public class GameActivity extends Activity {
 		Paint paint = new Paint();
 		paint.setColor(Color.RED);
 		paint.setStyle(Style.STROKE);
-		paint.setStrokeWidth(5);
+		paint.setStrokeWidth(5);waarde = waarde %1;
+		int breed = bg.getWidth();
+		int hoog = bg.getHeight();
+		for(int idx =0; idx < 9; idx++)
+		{
+			waarde = waarde * 10;
+			int value = (int) waarde%10;
+			if(value != 0)
+			{
+				Bitmap fg = BitmapFactory.decodeResource(getResources(), symbols[value]);
+				float left = ((value-1)%3)*(breed/3);
+				float top = ((value-1)/3)*(hoog/3);
+				int b = breed/3;
+				int h = hoog/3;
+				fg = Bitmap.createScaledBitmap(fg, b, h, false);
+				combo.drawBitmap(fg, left, top, null);
+			}
+		}		
 		combo.drawRoundRect(new RectF(0, 0, outc.getWidth(), outc.getHeight()) ,3, 3, paint);
 		return new BitmapDrawable(getResources(), outc);
 	}
@@ -326,10 +370,10 @@ public class GameActivity extends Activity {
 			if(prevselectedID != 0 && sudokuveld[prevlijstlocatie] < 30)
 			{
 				sudokuveld[prevlijstlocatie] -= 20;
-				redrawSudokuOne(prevlijstlocatie);
+				updateState(prevlijstlocatie);
 			}
 			prevselectedID = id;
-			redrawSudokuOne(lijstlocatie);
+			updateState(lijstlocatie);
 		}
 	}
 	public void onClickInvoer(View view)
@@ -344,13 +388,14 @@ public class GameActivity extends Activity {
 			
 			if(groot)
 			{
-				if(checkSudoku(lijstlocatie, nummer)) sudokuveld[lijstlocatie] = nummer+20;
+				Tile t = new Tile(lijstlocatie, nummer);
+				if(sudokugamestate.checkNewState(sudokuveld, t)) sudokuveld[lijstlocatie] = nummer+20;
 				else sudokuveld[lijstlocatie] = nummer+30;
 			}
 			else
 			{
 				double deler =  Math.pow(10, nummer);
-				double Nummer =  nummer / deler;
+				double Nummer =  (nummer / deler)+0.0000000001;
 				if(waarde%1 !=0)
 				{
 					int value = (int)(waarde*deler)%10;
@@ -359,33 +404,7 @@ public class GameActivity extends Activity {
 				}
 				else sudokuveld[lijstlocatie]+= Nummer;
 			}
-			redrawSudokuOne(lijstlocatie);
+			updateState(lijstlocatie);
 		}
 	}
-	private boolean checkSudoku(int locatie, int nummer)
-	{
-		int col = locatie%9;
-		int row = locatie/9;
-		
-		//check horizontaal
-		for(int i = 0; i<9; i++)
-		{
-			int loc = i+(9*row);
-			if(loc<81)
-			{
-				double waarde = sudokuveld[loc];
-				if(i!=col && waarde == nummer || waarde == nummer+10) return false;
-			}
-		}
-		//check verticaal
-		for(int i = col; i<81; i+=9)
-		{
-			double waarde = sudokuveld[i];
-			if(i!= row && waarde == nummer || waarde == nummer+10) return false;
-		}
-		//check rest van vak
-		
-		return true;
-	}
-
 }

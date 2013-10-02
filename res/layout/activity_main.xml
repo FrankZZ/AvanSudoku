@@ -7,6 +7,7 @@
     android:gravity="top" >
 
     <ImageView
+        android:contentDescription="@string/empty"
         android:id="@+id/imageView1"
         android:layout_width="300dp"
         android:layout_height="100dp"
@@ -16,6 +17,7 @@
         android:src="@drawable/avansudoku" />
 
     <ImageView
+        android:contentDescription="@string/empty"
         android:id="@+id/imageView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -32,9 +34,12 @@
         android:layout_alignLeft="@+id/imageView2"
         android:layout_below="@+id/imageView2"
         android:layout_marginTop="50dp"
+        android:contentDescription="@string/empty"
+        android:onClick="loadGame"
         android:src="@drawable/loadgame" />
 
     <ImageView
+        android:contentDescription="@string/empty"
         android:id="@+id/imageView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

@@ -1,7 +1,5 @@
 package nl.avans.avansudoku;
 
-import java.io.Console;
-
 public class Interface {
 
 	public Interface()

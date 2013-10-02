@@ -6,6 +6,7 @@
     android:columnCount="1"
     android:gravity="top" >
     <ImageView
+        android:contentDescription="@string/empty"
         android:id="@+id/imageView1"
         android:layout_width="300dp"
         android:layout_height="300dp"
@@ -24,7 +25,7 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textColor="@color/TextColor" />
 
-    <ImageView
+    <ImageView android:contentDescription="@string/empty"
         android:id="@+id/imageView2"
         android:layout_width="150dp"
         android:layout_height="150dp"
@@ -33,7 +34,7 @@
         android:layout_marginBottom="31dp"
         android:src="@drawable/invoer" />
 
-    <ImageView
+    <ImageView android:contentDescription="@string/empty"
         android:id="@+id/imageView5"
         android:layout_width="60dp"
         android:layout_height="60dp"
@@ -42,7 +43,7 @@
         android:onClick="GrootteAanpassen"
         android:src="@drawable/chalkgroot" />
 
-    <ImageView
+    <ImageView android:contentDescription="@string/empty"
         android:id="@+id/imageView3"
         android:layout_width="60dp"
         android:layout_height="60dp"
@@ -51,7 +52,7 @@
         android:onClick="Undo"
         android:src="@drawable/undo" />
 
-    <ImageView
+    <ImageView android:contentDescription="@string/empty"
         android:id="@+id/c1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -60,7 +61,7 @@
         android:onClick="onClickInvoer"
         android:src="@drawable/chalk1" />
 
-    <ImageView
+    <ImageView android:contentDescription="@string/empty"
         android:id="@+id/c2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -69,7 +70,7 @@
         android:onClick="onClickInvoer"
         android:src="@drawable/chalk2" />
 
-    <ImageView
+    <ImageView android:contentDescription="@string/empty"
         android:id="@+id/c3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -78,7 +79,7 @@
         android:onClick="onClickInvoer"
         android:src="@drawable/chalk3" />
 
-    <ImageView
+    <ImageView android:contentDescription="@string/empty"
         android:id="@+id/c8"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -88,7 +89,7 @@
         android:src="@drawable/chalk8"
         android:translationY="-2dp" />
 
-    <ImageView
+    <ImageView android:contentDescription="@string/empty"
         android:id="@+id/c9"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -98,7 +99,7 @@
         android:src="@drawable/chalk9"
         android:translationY="-2dp" />
 
-    <ImageView
+    <ImageView android:contentDescription="@string/empty"
         android:id="@+id/imageView4"
         android:layout_width="60dp"
         android:layout_height="60dp"
@@ -107,7 +108,7 @@
         android:onClick="Restart"
         android:src="@drawable/restart" />
 
-    <ImageView
+    <ImageView android:contentDescription="@string/empty"
         android:id="@+id/imageView6"
         android:layout_width="60dp"
         android:layout_height="60dp"
@@ -116,7 +117,7 @@
         android:onClick="Hint"
         android:src="@drawable/hint" />
 
-    <ImageView
+    <ImageView android:contentDescription="@string/empty"
         android:id="@+id/c7"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -126,7 +127,7 @@
         android:src="@drawable/chalk7"
         android:translationY="-2dp" />
 
-    <ImageView
+    <ImageView android:contentDescription="@string/empty"
         android:id="@+id/c5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -136,7 +137,7 @@
         android:src="@drawable/chalk5"
         android:translationY="4dp" />
 
-    <ImageView
+    <ImageView android:contentDescription="@string/empty"
         android:id="@+id/c6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -146,7 +147,7 @@
         android:src="@drawable/chalk6"
         android:translationY="4dp" />
 
-    <ImageView
+    <ImageView android:contentDescription="@string/empty"
         android:id="@+id/c4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -156,7 +157,7 @@
         android:src="@drawable/chalk4"
         android:translationY="4dp" />
 
-    <ImageView
+    <ImageView android:contentDescription="@string/empty"
         android:id="@+id/v00"
         android:layout_width="38dp"
         android:layout_height="38dp"
@@ -165,7 +166,7 @@
         android:onClick="onClickV"
         android:src="@drawable/chalk0" />
 
-    <ImageView
+    <ImageView android:contentDescription="@string/empty"
         android:id="@+id/v01"
         android:layout_width="32dp"
         android:layout_height="32dp"
@@ -174,7 +175,7 @@
         android:onClick="onClickV" 
         android:src="@drawable/chalk0" />
 
-    <ImageView
+    <ImageView android:contentDescription="@string/empty"
         android:id="@+id/v02"
         android:layout_width="32dp"
         android:layout_height="32dp"
@@ -183,7 +184,7 @@
         android:onClick="onClickV" 
         android:src="@drawable/chalk0" />
 
-    <ImageView
+    <ImageView android:contentDescription="@string/empty"
         android:id="@+id/v03"
         android:layout_width="32dp"
         android:layout_height="32dp"
@@ -192,7 +193,7 @@
         android:onClick="onClickV" 
         android:src="@drawable/chalk0" />
 
-    <ImageView
+    <ImageView android:contentDescription="@string/empty"
         android:id="@+id/v04"
         android:layout_width="32dp"
         android:layout_height="32dp"
@@ -201,7 +202,7 @@
         android:onClick="onClickV" 
         android:src="@drawable/chalk0" />
 
-    <ImageView
+    <ImageView android:contentDescription="@string/empty"
         android:id="@+id/v05"
         android:layout_width="32dp"
         android:layout_height="32dp"
@@ -210,7 +211,7 @@
         android:onClick="onClickV" 
         android:src="@drawable/chalk0" />
 
-    <ImageView
+    <ImageView android:contentDescription="@string/empty"
         android:id="@+id/v06"
         android:layout_width="32dp"
         android:layout_height="32dp"
@@ -219,7 +220,7 @@
         android:onClick="onClickV" 
         android:src="@drawable/chalk0" />
 
-    <ImageView
+    <ImageView android:contentDescription="@string/empty"
         android:id="@+id/v07"
         android:layout_width="32dp"
         android:layout_height="32dp"
@@ -228,7 +229,7 @@
         android:onClick="onClickV" 
         android:src="@drawable/chalk0" />
 
-    <ImageView
+    <ImageView android:contentDescription="@string/empty"
         android:id="@+id/v08"
         android:layout_width="32dp"
         android:layout_height="32dp"
@@ -237,7 +238,7 @@
         android:onClick="onClickV" 
         android:src="@drawable/chalk0" />
 
-    <ImageView
+    <ImageView android:contentDescription="@string/empty"
         android:id="@+id/v09"
         android:layout_width="32dp"
         android:layout_height="32dp"
@@ -246,7 +247,7 @@
         android:onClick="onClickV" 
         android:src="@drawable/chalk0" />
 
-    <ImageView
+    <ImageView android:contentDescription="@string/empty"
         android:id="@+id/v10"
         android:layout_width="32dp"
         android:layout_height="32dp"
@@ -255,7 +256,7 @@
         android:onClick="onClickV" 
         android:src="@drawable/chalk0" />
 
-    <ImageView
+    <ImageView android:contentDescription="@string/empty"
         android:id="@+id/v11"
         android:layout_width="32dp"
         android:layout_height="32dp"
@@ -264,7 +265,7 @@
         android:onClick="onClickV" 
         android:src="@drawable/chalk0" />
 
-    <ImageView
+    <ImageView android:contentDescription="@string/empty"
         android:id="@+id/v12"
         android:layout_width="32dp"
         android:layout_height="32dp"
@@ -273,7 +274,7 @@
         android:onClick="onClickV" 
         android:src="@drawable/chalk0" />
 
-    <ImageView
+    <ImageView android:contentDescription="@string/empty"
         android:id="@+id/v13"
         android:layout_width="32dp"
         android:layout_height="32dp"
@@ -282,7 +283,7 @@
         android:onClick="onClickV" 
         android:src="@drawable/chalk0" />
 
-    <ImageView
+    <ImageView android:contentDescription="@string/empty"
         android:id="@+id/v14"
         android:layout_width="32dp"
         android:layout_height="32dp"
@@ -291,7 +292,7 @@
         android:onClick="onClickV" 
         android:src="@drawable/chalk0" />
 
-    <ImageView
+    <ImageView android:contentDescription="@string/empty"
         android:id="@+id/v15"
         android:layout_width="32dp"
         android:layout_height="32dp"
@@ -300,7 +301,7 @@
         android:onClick="onClickV" 
         android:src="@drawable/chalk0" />
 
-    <ImageView
+    <ImageView android:contentDescription="@string/empty"
         android:id="@+id/v16"
         android:layout_width="32dp"
         android:layout_height="32dp"
@@ -309,7 +310,7 @@
         android:onClick="onClickV" 
         android:src="@drawable/chalk0" />
 
-    <ImageView
+    <ImageView android:contentDescription="@string/empty"
         android:id="@+id/v17"
         android:layout_width="32dp"
         android:layout_height="32dp"
@@ -318,7 +319,7 @@
         android:onClick="onClickV" 
         android:src="@drawable/chalk0" />
 
-    <ImageView
+    <ImageView android:contentDescription="@string/empty"
         android:id="@+id/v18"
         android:layout_width="32dp"
         android:layout_height="32dp"
@@ -327,7 +328,7 @@
         android:onClick="onClickV" 
         android:src="@drawable/chalk0" />
 
-    <ImageView
+    <ImageView android:contentDescription="@string/empty"
         android:id="@+id/v19"
         android:layout_width="32dp"
         android:layout_height="32dp"
@@ -336,7 +337,7 @@
         android:onClick="onClickV" 
         android:src="@drawable/chalk0" />
 
-    <ImageView
+    <ImageView android:contentDescription="@string/empty"
         android:id="@+id/v20"
         android:layout_width="32dp"
         android:layout_height="32dp"
@@ -345,7 +346,7 @@
         android:onClick="onClickV" 
         android:src="@drawable/chalk0" />
 
-    <ImageView
+    <ImageView android:contentDescription="@string/empty"
         android:id="@+id/v21"
         android:layout_width="32dp"
         android:layout_height="32dp"
@@ -354,7 +355,7 @@
         android:onClick="onClickV" 
         android:src="@drawable/chalk0" />
 
-    <ImageView
+    <ImageView android:contentDescription="@string/empty"
         android:id="@+id/v22"
         android:layout_width="32dp"
         android:layout_height="32dp"
@@ -363,7 +364,7 @@
         android:onClick="onClickV" 
         android:src="@drawable/chalk0" />
 
-    <ImageView
+    <ImageView android:contentDescription="@string/empty"
         android:id="@+id/v23"
         android:layout_width="32dp"
         android:layout_height="32dp"
@@ -372,7 +373,7 @@
         android:onClick="onClickV" 
         android:src="@drawable/chalk0" />
 
-    <ImageView
+    <ImageView android:contentDescription="@string/empty"
         android:id="@+id/v24"
         android:layout_width="32dp"
         android:layout_height="32dp"
@@ -381,7 +382,7 @@
         android:onClick="onClickV" 
         android:src="@drawable/chalk0" />
 
-    <ImageView
+    <ImageView android:contentDescription="@string/empty"
         android:id="@+id/v25"
         android:layout_width="32dp"
         android:layout_height="32dp"
@@ -390,7 +391,7 @@
         android:onClick="onClickV" 
         android:src="@drawable/chalk0" />
 
-    <ImageView
+    <ImageView android:contentDescription="@string/empty"
         android:id="@+id/v26"
         android:layout_width="32dp"
         android:layout_height="32dp"
@@ -399,7 +400,7 @@
         android:onClick="onClickV" 
         android:src="@drawable/chalk0" />
 
-    <ImageView
+    <ImageView android:contentDescription="@string/empty"
         android:id="@+id/v27"
         android:layout_width="32dp"
         android:layout_height="32dp"
@@ -408,7 +409,7 @@
         android:onClick="onClickV" 
         android:src="@drawable/chalk0" />
 
-    <ImageView
+    <ImageView android:contentDescription="@string/empty"
         android:id="@+id/v28"
         android:layout_width="32dp"
         android:layout_height="32dp"
@@ -417,7 +418,7 @@
         android:onClick="onClickV" 
         android:src="@drawable/chalk0" />
 
-    <ImageView
+    <ImageView android:contentDescription="@string/empty"
         android:id="@+id/v29"
         android:layout_width="32dp"
         android:layout_height="32dp"
@@ -426,7 +427,7 @@
         android:onClick="onClickV" 
         android:src="@drawable/chalk0" />
 
-    <ImageView
+    <ImageView android:contentDescription="@string/empty"
         android:id="@+id/v30"
         android:layout_width="32dp"
         android:layout_height="32dp"
@@ -435,7 +436,7 @@
         android:onClick="onClickV" 
         android:src="@drawable/chalk0" />
 
-    <ImageView
+    <ImageView android:contentDescription="@string/empty"
         android:id="@+id/v31"
         android:layout_width="32dp"
         android:layout_height="32dp"
@@ -444,7 +445,7 @@
         android:onClick="onClickV" 
         android:src="@drawable/chalk0" />
 
-    <ImageView
+    <ImageView android:contentDescription="@string/empty"
         android:id="@+id/v32"
         android:layout_width="32dp"
         android:layout_height="32dp"
@@ -453,7 +454,7 @@
         android:onClick="onClickV" 
         android:src="@drawable/chalk0" />
 
-    <ImageView
+    <ImageView android:contentDescription="@string/empty"
         android:id="@+id/v33"
         android:layout_width="32dp"
         android:layout_height="32dp"
@@ -462,7 +463,7 @@
         android:onClick="onClickV" 
         android:src="@drawable/chalk0" />
 
-    <ImageView
+    <ImageView android:contentDescription="@string/empty"
         android:id="@+id/v34"
         android:layout_width="32dp"
         android:layout_height="32dp"
@@ -471,7 +472,7 @@
         android:onClick="onClickV" 
         android:src="@drawable/chalk0" />
 
-    <ImageView
+    <ImageView android:contentDescription="@string/empty"
         android:id="@+id/v35"
         android:layout_width="32dp"
         android:layout_height="32dp"
@@ -480,7 +481,7 @@
         android:onClick="onClickV" 
         android:src="@drawable/chalk0" />
 
-    <ImageView
+    <ImageView android:contentDescription="@string/empty"
         android:id="@+id/v36"
         android:layout_width="32dp"
         android:layout_height="32dp"
@@ -489,7 +490,7 @@
         android:onClick="onClickV" 
         android:src="@drawable/chalk0" />
 
-    <ImageView
+    <ImageView android:contentDescription="@string/empty"
         android:id="@+id/v37"
         android:layout_width="32dp"
         android:layout_height="32dp"
@@ -498,7 +499,7 @@
         android:onClick="onClickV" 
         android:src="@drawable/chalk0" />
 
-    <ImageView
+    <ImageView android:contentDescription="@string/empty"
         android:id="@+id/v38"
         android:layout_width="32dp"
         android:layout_height="32dp"
@@ -507,7 +508,7 @@
         android:onClick="onClickV" 
         android:src="@drawable/chalk0" />
 
-    <ImageView
+    <ImageView android:contentDescription="@string/empty"
         android:id="@+id/v39"
         android:layout_width="32dp"
         android:layout_height="32dp"
@@ -516,7 +517,7 @@
         android:onClick="onClickV" 
         android:src="@drawable/chalk0" />
 
-    <ImageView
+    <ImageView android:contentDescription="@string/empty"
         android:id="@+id/v40"
         android:layout_width="32dp"
         android:layout_height="32dp"
@@ -525,7 +526,7 @@
         android:onClick="onClickV" 
         android:src="@drawable/chalk0" />
 
-    <ImageView
+    <ImageView android:contentDescription="@string/empty"
         android:id="@+id/v41"
         android:layout_width="32dp"
         android:layout_height="32dp"
@@ -534,7 +535,7 @@
         android:onClick="onClickV" 
         android:src="@drawable/chalk0" />
 
-    <ImageView
+    <ImageView android:contentDescription="@string/empty"
         android:id="@+id/v42"
         android:layout_width="32dp"
         android:layout_height="32dp"
@@ -543,7 +544,7 @@
         android:onClick="onClickV" 
         android:src="@drawable/chalk0" />
 
-    <ImageView
+    <ImageView android:contentDescription="@string/empty"
         android:id="@+id/v43"
         android:layout_width="32dp"
         android:layout_height="32dp"
@@ -552,7 +553,7 @@
         android:onClick="onClickV" 
         android:src="@drawable/chalk0" />
 
-    <ImageView
+    <ImageView android:contentDescription="@string/empty"
         android:id="@+id/v44"
         android:layout_width="32dp"
         android:layout_height="32dp"
@@ -561,7 +562,7 @@
         android:onClick="onClickV" 
         android:src="@drawable/chalk0" />
 
-    <ImageView
+    <ImageView android:contentDescription="@string/empty"
         android:id="@+id/v45"
         android:layout_width="32dp"
         android:layout_height="32dp"
@@ -570,7 +571,7 @@
         android:onClick="onClickV" 
         android:src="@drawable/chalk0" />
 
-    <ImageView
+    <ImageView android:contentDescription="@string/empty"
         android:id="@+id/v46"
         android:layout_width="32dp"
         android:layout_height="32dp"
@@ -579,7 +580,7 @@
         android:onClick="onClickV" 
         android:src="@drawable/chalk0" />
 
-    <ImageView
+    <ImageView android:contentDescription="@string/empty"
         android:id="@+id/v47"
         android:layout_width="32dp"
         android:layout_height="32dp"
@@ -588,7 +589,7 @@
         android:onClick="onClickV" 
         android:src="@drawable/chalk0" />
 
-    <ImageView
+    <ImageView android:contentDescription="@string/empty"
         android:id="@+id/v48"
         android:layout_width="32dp"
         android:layout_height="32dp"
@@ -597,7 +598,7 @@
         android:onClick="onClickV" 
         android:src="@drawable/chalk0" />
 
-    <ImageView
+    <ImageView android:contentDescription="@string/empty"
         android:id="@+id/v49"
         android:layout_width="32dp"
         android:layout_height="32dp"
@@ -606,7 +607,7 @@
         android:onClick="onClickV" 
         android:src="@drawable/chalk0" />
 
-    <ImageView
+    <ImageView android:contentDescription="@string/empty"
         android:id="@+id/v50"
         android:layout_width="32dp"
         android:layout_height="32dp"
@@ -615,7 +616,7 @@
         android:onClick="onClickV" 
         android:src="@drawable/chalk0" />
 
-    <ImageView
+    <ImageView android:contentDescription="@string/empty"
         android:id="@+id/v51"
         android:layout_width="32dp"
         android:layout_height="32dp"
@@ -624,7 +625,7 @@
         android:onClick="onClickV" 
         android:src="@drawable/chalk0" />
 
-    <ImageView
+    <ImageView android:contentDescription="@string/empty"
         android:id="@+id/v52"
         android:layout_width="32dp"
         android:layout_height="32dp"
@@ -633,7 +634,7 @@
         android:onClick="onClickV" 
         android:src="@drawable/chalk0" />
 
-    <ImageView
+    <ImageView android:contentDescription="@string/empty"
         android:id="@+id/v53"
         android:layout_width="32dp"
         android:layout_height="32dp"
@@ -642,7 +643,7 @@
         android:onClick="onClickV" 
         android:src="@drawable/chalk0" />
 
-    <ImageView
+    <ImageView android:contentDescription="@string/empty"
         android:id="@+id/v54"
         android:layout_width="32dp"
         android:layout_height="32dp"
@@ -651,7 +652,7 @@
         android:onClick="onClickV" 
         android:src="@drawable/chalk0" />
 
-    <ImageView
+    <ImageView android:contentDescription="@string/empty"
         android:id="@+id/v55"
         android:layout_width="32dp"
         android:layout_height="32dp"
@@ -660,7 +661,7 @@
         android:onClick="onClickV" 
         android:src="@drawable/chalk0" />
 
-    <ImageView
+    <ImageView android:contentDescription="@string/empty"
         android:id="@+id/v56"
         android:layout_width="32dp"
         android:layout_height="32dp"
@@ -669,7 +670,7 @@
         android:onClick="onClickV" 
         android:src="@drawable/chalk0" />
 
-    <ImageView
+    <ImageView android:contentDescription="@string/empty"
         android:id="@+id/v57"
         android:layout_width="32dp"
         android:layout_height="32dp"
@@ -678,7 +679,7 @@
         android:onClick="onClickV" 
         android:src="@drawable/chalk0" />
 
-    <ImageView
+    <ImageView android:contentDescription="@string/empty"
         android:id="@+id/v58"
         android:layout_width="32dp"
         android:layout_height="32dp"
@@ -687,7 +688,7 @@
         android:onClick="onClickV" 
         android:src="@drawable/chalk0" />
 
-    <ImageView
+    <ImageView android:contentDescription="@string/empty"
         android:id="@+id/v59"
         android:layout_width="32dp"
         android:layout_height="32dp"
@@ -696,7 +697,7 @@
         android:onClick="onClickV" 
         android:src="@drawable/chalk0" />
 
-    <ImageView
+    <ImageView android:contentDescription="@string/empty"
         android:id="@+id/v60"
         android:layout_width="32dp"
         android:layout_height="32dp"
@@ -705,7 +706,7 @@
         android:onClick="onClickV" 
         android:src="@drawable/chalk0" />
 
-    <ImageView
+    <ImageView android:contentDescription="@string/empty"
         android:id="@+id/v61"
         android:layout_width="32dp"
         android:layout_height="32dp"
@@ -714,7 +715,8 @@
         android:onClick="onClickV" 
         android:src="@drawable/chalk0" />
 
-    <ImageView
+    <ImageView 
+        android:contentDescription="@string/empty"
         android:id="@+id/v62"
         android:layout_width="32dp"
         android:layout_height="32dp"
@@ -723,7 +725,7 @@
         android:onClick="onClickV" 
         android:src="@drawable/chalk0" />
 
-    <ImageView
+    <ImageView android:contentDescription="@string/empty"
         android:id="@+id/v63"
         android:layout_width="32dp"
         android:layout_height="32dp"
@@ -732,7 +734,7 @@
         android:onClick="onClickV" 
         android:src="@drawable/chalk0" />
 
-    <ImageView
+    <ImageView android:contentDescription="@string/empty"
         android:id="@+id/v64"
         android:layout_width="32dp"
         android:layout_height="32dp"
@@ -741,7 +743,7 @@
         android:onClick="onClickV" 
         android:src="@drawable/chalk0" />
 
-    <ImageView
+    <ImageView android:contentDescription="@string/empty"
         android:id="@+id/v65"
         android:layout_width="32dp"
         android:layout_height="32dp"
@@ -750,7 +752,7 @@
         android:onClick="onClickV" 
         android:src="@drawable/chalk0" />
 
-    <ImageView
+    <ImageView android:contentDescription="@string/empty"
         android:id="@+id/v66"
         android:layout_width="32dp"
         android:layout_height="32dp"
@@ -759,7 +761,7 @@
         android:onClick="onClickV" 
         android:src="@drawable/chalk0" />
 
-    <ImageView
+    <ImageView android:contentDescription="@string/empty"
         android:id="@+id/v67"
         android:layout_width="32dp"
         android:layout_height="32dp"
@@ -768,7 +770,7 @@
         android:onClick="onClickV" 
         android:src="@drawable/chalk0" />
 
-    <ImageView
+    <ImageView android:contentDescription="@string/empty"
         android:id="@+id/v68"
         android:layout_width="32dp"
         android:layout_height="32dp"
@@ -777,7 +779,7 @@
         android:onClick="onClickV" 
         android:src="@drawable/chalk0" />
 
-    <ImageView
+    <ImageView android:contentDescription="@string/empty"
         android:id="@+id/v69"
         android:layout_width="32dp"
         android:layout_height="32dp"
@@ -786,7 +788,7 @@
         android:onClick="onClickV" 
         android:src="@drawable/chalk0" />
 
-    <ImageView
+    <ImageView android:contentDescription="@string/empty"
         android:id="@+id/v70"
         android:layout_width="32dp"
         android:layout_height="32dp"
@@ -795,7 +797,7 @@
         android:onClick="onClickV" 
         android:src="@drawable/chalk0" />
 
-    <ImageView
+    <ImageView android:contentDescription="@string/empty"
         android:id="@+id/v71"
         android:layout_width="32dp"
         android:layout_height="32dp"
@@ -804,7 +806,7 @@
         android:onClick="onClickV" 
         android:src="@drawable/chalk0" />
 
-    <ImageView
+    <ImageView android:contentDescription="@string/empty"
         android:id="@+id/v72"
         android:layout_width="32dp"
         android:layout_height="32dp"
@@ -813,7 +815,7 @@
         android:onClick="onClickV" 
         android:src="@drawable/chalk0" />
 
-    <ImageView
+    <ImageView android:contentDescription="@string/empty"
         android:id="@+id/v73"
         android:layout_width="32dp"
         android:layout_height="32dp"
@@ -822,7 +824,7 @@
         android:onClick="onClickV" 
         android:src="@drawable/chalk0" />
 
-    <ImageView
+    <ImageView android:contentDescription="@string/empty"
         android:id="@+id/v74"
         android:layout_width="32dp"
         android:layout_height="32dp"
@@ -831,7 +833,7 @@
         android:onClick="onClickV" 
         android:src="@drawable/chalk0" />
 
-    <ImageView
+    <ImageView android:contentDescription="@string/empty"
         android:id="@+id/v75"
         android:layout_width="32dp"
         android:layout_height="32dp"
@@ -840,7 +842,7 @@
         android:onClick="onClickV" 
         android:src="@drawable/chalk0" />
 
-    <ImageView
+    <ImageView android:contentDescription="@string/empty"
         android:id="@+id/v76"
         android:layout_width="32dp"
         android:layout_height="32dp"
@@ -849,7 +851,7 @@
         android:onClick="onClickV" 
         android:src="@drawable/chalk0" />
 
-    <ImageView
+    <ImageView android:contentDescription="@string/empty"
         android:id="@+id/v77"
         android:layout_width="32dp"
         android:layout_height="32dp"
@@ -858,7 +860,8 @@
         android:onClick="onClickV" 
         android:src="@drawable/chalk0" />
 
-    <ImageView
+    <ImageView 
+        android:contentDescription="@string/empty"
         android:id="@+id/v78"
         android:layout_width="32dp"
         android:layout_height="32dp"
@@ -867,7 +870,8 @@
         android:onClick="onClickV" 
         android:src="@drawable/chalk0" />
 
-    <ImageView
+    <ImageView 
+        android:contentDescription="@string/empty"
         android:id="@+id/v79"
         android:layout_width="32dp"
         android:layout_height="32dp"
@@ -876,7 +880,8 @@
         android:onClick="onClickV" 
         android:src="@drawable/chalk0" />
 
-    <ImageView
+    <ImageView 
+        android:contentDescription="@string/empty"
         android:id="@+id/v80"
         android:layout_width="32dp"
         android:layout_height="32dp"

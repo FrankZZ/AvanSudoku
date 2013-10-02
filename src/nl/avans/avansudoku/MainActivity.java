@@ -4,13 +4,9 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.EditText;
-import android.widget.RadioButton;
-import android.widget.Toast;
 
 public class MainActivity extends Activity {
-  public static final String THEMA = "themaint";
-private EditText text;
+  public static final String Loaded = "loaded";
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
@@ -29,16 +25,13 @@ private EditText text;
   public void newGame(View view)
   {
 	  Intent intent = new Intent(this, DifficultySelectActivity.class );
+		intent.putExtra(Loaded, 0);
 	  startActivity(intent);
   }
-
-  // Converts to celsius
-  private float convertFahrenheitToCelsius(float fahrenheit) {
-    return ((fahrenheit - 32) * 5 / 9);
-  }
-
-  // Converts to fahrenheit
-  private float convertCelsiusToFahrenheit(float celsius) {
-    return ((celsius * 9) / 5) + 32;
+  public void loadGame(View view)
+  {
+	  Intent intent = new Intent(this, LoadActivity.class );
+		intent.putExtra(Loaded, 1);
+	  startActivity(intent);
   }
 } 

@@ -9,14 +9,15 @@ import android.view.View;
 public class DifficultySelectActivity extends Activity {
 
 	public final static String Difficulty_Text = "difficultytext";
-	public final static String Difficulty_Int = "difficultyint";
-	public static final String THEMA = "themaint";
+	public final static String Loaded = "loaded";
+	
+	String load;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_difficulty_select);
 		Intent intent = getIntent();
-		String thema = intent.getStringExtra(MainActivity.THEMA);
+		load = intent.getStringExtra(MainActivity.Loaded);
 	}
 
 	@Override
@@ -45,7 +46,7 @@ public class DifficultySelectActivity extends Activity {
 	{
 		Intent intent = new Intent(this, GameActivity.class );
 		intent.putExtra(Difficulty_Text, difficultyText);
-		intent.putExtra(Difficulty_Int, difficulty);
+		intent.putExtra(Loaded, load);
 		startActivity(intent);
 	}
 

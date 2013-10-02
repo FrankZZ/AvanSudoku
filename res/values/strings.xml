@@ -16,9 +16,14 @@
     <string name="calc">Calculate</string>
     <string name="title_activity_difficulty_select">DifficultySelectActivity</string>
     <string name="title_activity_game">GameActivity</string>
+
     <string-array name="themes_arrays">
-    <item name="NormalTheme">Normal symbols</item>
-    <item name="DoraTheme">Dora symbols</item>
+        <item name="NormalTheme">Normal symbols</item>
+        <item name="DoraTheme">Dora symbols</item>
     </string-array>
+
+    <string name="empty"></string>
+    <string name="title_activity_load">LoadActivity</string>
+    <string name="sudokuSave">sudokusavefile</string>
 
 </resources>

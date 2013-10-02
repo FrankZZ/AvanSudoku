@@ -13,11 +13,12 @@ public class Tile
 {
 	private int index;
 
-	private int value;
+	private double value;
 
 	private boolean[] candidates;
 
-	public Tile( int index, int number ) throws Throwable
+	public Tile( int index, double value ) 
+			//throws Throwable
 	{
 		this.setIndex( index );
 		this.setValue( value );
@@ -41,11 +42,12 @@ public class Tile
 	 *            the index to set
 	 * @throws Throwable
 	 */
-	public void setIndex( int index ) throws Throwable
+	public void setIndex( int index ) 
+			//throws Throwable
 	{
 		if( index < 0 || 81 <= index )
 		{
-			throw new Exception( "Oops! Wrong tile index: " + index + "!" );
+			//throw new Exception( "Oops! Wrong tile index: " + index + "!" );
 		}
 		this.index = index;
 	}
@@ -53,7 +55,7 @@ public class Tile
 	/**
 	 * @return the value of the cell
 	 */
-	public int getValue()
+	public double getValue()
 	{
 		return value;
 	}
@@ -63,14 +65,15 @@ public class Tile
 	 *            the value to set
 	 * @throws Throwable
 	 */
-	public void setValue( int value ) throws Throwable
+	public void setValue( double value2 ) 
+			//throws Throwable
 	{
-		if( value < 0 || 9 < value )
+		if( value2 < 0 || 9 < value2 )
 		{
-			throw new Exception( "Oops! Wrong value of tile no. "
-					+ this.index + ": "  + value + "!" );
+			//throw new Exception( "Oops! Wrong value of tile no. "
+					//+ this.index + ": "  + value2 + "!" );
 		}
-		this.value = value;
+		this.value = value2;
 	}
 
 	/**
@@ -86,12 +89,13 @@ public class Tile
 	 *            the candidates to set
 	 * @throws Throwable
 	 */
-	public void setCandidates( boolean[] candidates ) throws Throwable
+	public void setCandidates( boolean[] candidates ) 
+			//throws Throwable
 	{
 		if( candidates.length < 0 || 9 <= candidates.length )
 		{
-			throw new Exception( "Oops! Wrong candidates size of tile no. "
-					+ this.index + ": " + candidates.length + "!" );
+			//throw new Exception( "Oops! Wrong candidates size of tile no. "
+					//+ this.index + ": " + candidates.length + "!" );
 		}
 		this.candidates = candidates;
 	}
@@ -102,12 +106,13 @@ public class Tile
 	 *            the specific position.
 	 * @throws Throwable 
 	 */
-	public boolean getCandidate( int pos ) throws Throwable
+	public boolean getCandidate( int pos ) 
+			//throws Throwable
 	{
 		if( pos < 0 || 9 <= pos )
 		{
-			throw new Exception( "Oops! Wrong candidate position of tile no. "
-					+ this.index + ": " + pos + "!" );
+			//throw new Exception( "Oops! Wrong candidate position of tile no. "
+					//+ this.index + ": " + pos + "!" );
 		}
 		return candidates[pos];
 	}
@@ -119,12 +124,13 @@ public class Tile
 	 *            The new candidate of a specific position.
 	 * @throws Throwable 
 	 */
-	public void setCandidate( int pos, boolean candidate ) throws Throwable
+	public void setCandidate( int pos, boolean candidate ) 
+			//throws Throwable
 	{
 		if( pos < 0 || 9 <= pos )
 		{
-			throw new Exception( "Oops! Wrong candidate position of tile no. "
-					+ this.index + ": " + pos + "!" );
+			//throw new Exception( "Oops! Wrong candidate position of tile no. "
+					//+ this.index + ": " + pos + "!" );
 		}
 		this.candidates[pos] = candidate;
 	}
