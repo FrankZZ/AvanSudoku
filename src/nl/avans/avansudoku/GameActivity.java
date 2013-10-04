@@ -1,9 +1,10 @@
 package nl.avans.avansudoku;
 
-import control.SudokuCreator;
+
 import model.SudokuGameState;
 import model.Tile;
 import nl.avans.avansudoku.R;
+import nl.avans.avansudoku.control.SudokuCreator;
 import android.os.Bundle;
 import android.annotation.SuppressLint;
 import android.app.Activity;
