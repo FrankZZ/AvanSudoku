@@ -1,4 +1,4 @@
-package nl.avans.avansudoku.control;
+package nl.avans.avansudoku.model.solvers;
 
 import nl.avans.avansudoku.model.GameState;
 
