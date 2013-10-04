@@ -1,10 +1,11 @@
 package nl.avans.avansudoku;
 
 
-import model.SudokuGameState;
-import model.Tile;
+/*import model.SudokuGameState;
+import model.Tile;*/
 import nl.avans.avansudoku.R;
-import nl.avans.avansudoku.control.SudokuCreator;
+import nl.avans.avansudoku.control.*;
+import nl.avans.avansudoku.model.*;
 import android.os.Bundle;
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -50,7 +51,7 @@ public class GameActivity extends Activity {
 		String message = intent.getStringExtra(DifficultySelectActivity.Difficulty_Text);
 		TextView mTextView = (TextView) findViewById(R.id.Sudokunaam);
 		mTextView.setText(message);
-		int load = Integer.parseInt(intent.getStringExtra(MainActivity.Loaded));
+		int load = intent.getIntExtra(MainActivity.Loaded, 0);
 		if(load == 1)
 		{
 			LoadSudoku();
@@ -98,8 +99,14 @@ public class GameActivity extends Activity {
 	private void NewSudoku()
 	{
 		//sudokuveld = 
-		sudokucreater.CreateGame(); // geeft hopelijk iets terug
-		sudokugamestate.setStartState(sudokuveld);
+		SudokuGameState gameState = sudokucreater.generateTiles(); // geeft hopelijk iets terug
+		
+		for (int i = 0; i < 81; i++)
+		{
+			sudokuveld[i] = gameState.getTile(i).getValue();
+		}
+		
+//		sudokugamestate.setStartState(sudokuveld);
 		redrawSudokuAll();
 	}
 	public boolean onOptionsItemSelected(MenuItem item) {
@@ -157,8 +164,8 @@ public class GameActivity extends Activity {
 	}
 	private void updateState(int locatie)
 	{
-		if(sudokugamestate.updateCurrentState(sudokuveld))
-			redrawSudokuOne(locatie);
+		//if(sudokugamestate.updateCurrentState(sudokuveld))
+		redrawSudokuOne(locatie);
 	}
 	private void setSymbols()
 	{
@@ -389,9 +396,13 @@ public class GameActivity extends Activity {
 			
 			if(groot)
 			{
-				Tile t = new Tile(lijstlocatie, nummer);
-				if(sudokugamestate.checkNewState(sudokuveld, t)) sudokuveld[lijstlocatie] = nummer+20;
-				else sudokuveld[lijstlocatie] = nummer+30;
+				sudokugamestate.getTile(lijstlocatie).setValue(nummer);
+				
+				if(sudokugamestate.checkNewState()) 
+					sudokuveld[lijstlocatie] = nummer+20;
+				
+				else 
+					sudokuveld[lijstlocatie] = nummer+30;
 			}
 			else
 			{

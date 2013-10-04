@@ -30,4 +30,8 @@ public interface GameState
 	public abstract Tile[] getBlock(int atX, int atY);
 
 	public abstract void setBlock(int atX, int atY, Tile[] modifiedTiles);
+
+	Tile askHintAction();
+		
+	public abstract Boolean checkNewState();
 }

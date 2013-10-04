@@ -11,13 +11,13 @@ public class DifficultySelectActivity extends Activity {
 	public final static String Difficulty_Text = "difficultytext";
 	public final static String Loaded = "loaded";
 	
-	String load;
+	int load;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_difficulty_select);
 		Intent intent = getIntent();
-		load = intent.getStringExtra(MainActivity.Loaded);
+		load = intent.getIntExtra(MainActivity.Loaded, 0);
 	}
 
 	@Override
@@ -46,7 +46,7 @@ public class DifficultySelectActivity extends Activity {
 	{
 		Intent intent = new Intent(this, GameActivity.class );
 		intent.putExtra(Difficulty_Text, difficultyText);
-		intent.putExtra(Loaded, load);
+		intent.putExtra(MainActivity.Loaded, load);
 		startActivity(intent);
 	}
 
