@@ -1,8 +1,6 @@
 package nl.avans.avansudoku.control;
 
-import android.util.Log;
 import nl.avans.avansudoku.model.SudokuGameState;
-import nl.avans.avansudoku.model.Tile;
 
 public class SudokuCreator implements GameCreator
 {
@@ -27,9 +25,8 @@ public class SudokuCreator implements GameCreator
 
 		// Toast.makeText(ctx, str, Toast.LENGTH_LONG).show();
 	}
-
-	@SuppressWarnings( "unused" )
-	private SudokuGameState generateTiles( SudokuGameState gameState )
+ 
+	public SudokuGameState generateTiles()
 			throws Throwable
 	{
 		int i = 0, timesReverted = 0;

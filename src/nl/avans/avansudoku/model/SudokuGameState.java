@@ -73,12 +73,6 @@ public class SudokuGameState implements GameState
 		tiles[(y * 9) + x] = tile;
 	}
 
-	@Override
-	public Tile getTile( int index )
-	{
-		return tiles[index];
-	}
-
 	public Tile getTile(int x, int y)
 	{
 		return tiles[(y * 9) + x];
