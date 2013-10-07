@@ -5,10 +5,11 @@ import nl.avans.avansudoku.model.Tile;
 import android.content.Context;
 import android.util.Log;
 import android.widget.Toast;
-
+ 
 public class Game
 {
 
+	@SuppressWarnings( "unused" )
 	private Context ctx;
 	private int count = 0;
 	private boolean done = false;

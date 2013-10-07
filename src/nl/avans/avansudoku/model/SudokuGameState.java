@@ -66,6 +66,12 @@ public class SudokuGameState implements GameState
 		tiles[( y * 9 ) + x] = tile;
 	}
 
+	@Override
+	public Tile getTile( int index )
+	{
+		return tiles[index];
+	}
+
 	public Tile getTile( int x, int y )
 	{
 		return tiles[( y * 9 ) + x];
@@ -180,8 +186,7 @@ public class SudokuGameState implements GameState
 
 		/*
 		 * if (tiles.length >= index) { getPossibilities moet Tile array[]
-		 * returnen. } 
-		 * ??? WHAAAAT do you mean?? :S
+		 * returnen. } ??? WHAAAAT do you mean?? :S
 		 */
 
 		ArrayList<Tile> temp = new ArrayList<Tile>();
@@ -216,14 +221,15 @@ public class SudokuGameState implements GameState
 	}
 
 	/**
-	 * @return The index of upper left corner cell of the Block of the given index.
+	 * @return The index of upper left corner cell of the Block of the given
+	 *         index.
 	 * @param index
 	 */
 	private int upperLeftCornerIndex( int index )
 	{
 		{
 			int x, y;
-			
+
 			// First the X:
 			x = index % 9;
 			if( x < 3 )
@@ -238,7 +244,7 @@ public class SudokuGameState implements GameState
 			{
 				x = 1;
 			}
-			
+
 			// Now the Y:
 			y = index / 9;
 			if( y < 3 )
@@ -253,7 +259,7 @@ public class SudokuGameState implements GameState
 			{
 				y = 1;
 			}
-			
+
 			return ( x * 3 ) + ( y * 27 );
 		}
 	}

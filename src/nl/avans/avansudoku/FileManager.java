@@ -10,6 +10,7 @@ import android.util.Log;
 
 
 
+@SuppressWarnings( "unused" )
 class FileManager
 {
 	private final static String DELIM = "|";

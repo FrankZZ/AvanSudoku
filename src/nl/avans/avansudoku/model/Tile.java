@@ -148,7 +148,7 @@ public class Tile
 	}
 
 	/**
-	 * @return the candidates
+	 * @return the candidates (those small numbers in the tile).
 	 */
 	public boolean[] getCandidates()
 	{
@@ -202,6 +202,15 @@ public class Tile
 		}
 		this.candidates[pos] = candidate;
 	}
+	
+	/**
+	 * @return the amount of candidates of this tile
+	 */
+	public int getAmountOfCandidates()
+	{
+		return candidates.length;
+	}
+	
 
 	public boolean isLocked()
 	{
