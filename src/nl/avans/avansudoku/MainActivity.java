@@ -31,7 +31,7 @@ public class MainActivity extends Activity {
   public void loadGame(View view)
   {
 	  Intent intent = new Intent(this, LoadActivity.class );
-		intent.putExtra(Loaded, 1);
+		intent.putExtra(Loaded, "1");
 	  startActivity(intent);
   }
 } 

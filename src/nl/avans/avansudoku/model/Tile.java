@@ -11,51 +11,53 @@ package nl.avans.avansudoku.model;
  */
 public class Tile
 {
-	private int index;
 
-	private int x;
+	private int			index;
 
-	private int y;
+	private int			x;
 
-	private int value;
+	private int			y;
 
-	private boolean[] candidates;
+	private int			value;
 
-	private boolean locked;
-	
-	private int correctValue;
+	private boolean[]	candidates;
 
-	public Tile( int x, int y, int value, boolean isLocked, int correctValue )
-			throws Throwable
+	private boolean		locked;
+
+	private int			correctValue;
+
+	public Tile(int x, int y, int value, boolean isLocked, int correctValue)
 	{
-		this.setX( x );
-		this.setY( y );
-		this.setIndex( ( y * 9 ) + x );
-		this.setValue( value );
-		this.setCandidates( new boolean[9] );
-		for( int i = 0; i < candidates.length; i++ )
+		this.setX(x);
+		this.setY(y);
+		this.setIndex((y * 9) + x);
+		this.setValue(value);
+		this.setCandidates(new boolean[9]);
+		for (int i = 0; i < candidates.length; i++)
 		{
 			this.candidates[i] = false;
 		}
-		this.setLocked( isLocked );
-		this.setCorrectValue( correctValue );
+		this.setLocked(isLocked);
+		this.setCorrectValue(correctValue);
 	}
 
-	
-	public Tile( int x, int y, int index, int value, boolean isLocked, int correctValue )
-			throws Throwable
+	public Tile(int index, int value, boolean isLocked,
+			int correctValue) 
 	{
-		this.setX( x );
-		this.setY( y );
-		this.setIndex( index );
-		this.setValue( value );
-		this.setCandidates( new boolean[9] );
-		for( int i = 0; i < candidates.length; i++ )
+		int x = index % 9;
+		int y = index / 9;
+		
+		this.setX(x);
+		this.setY(y);
+		this.setIndex(index);
+		this.setValue(value);
+		this.setCandidates(new boolean[9]);
+		for (int i = 0; i < candidates.length; i++)
 		{
 			this.candidates[i] = false;
 		}
-		this.setLocked( isLocked );
-		this.setCorrectValue( correctValue );
+		this.setLocked(isLocked);
+		this.setCorrectValue(correctValue);
 	}
 
 	/**
@@ -71,13 +73,12 @@ public class Tile
 	 *            the x to set
 	 * @throws Throwable
 	 */
-	public void setX( int x ) throws Throwable
+	public void setX(int x)
 	{
-		if( x < 0 || 9 <= x )
+		if (x >= 0 || x < 9)
 		{
-			throw new Exception( "Oops! Wrong x value: " + x + "!" );
+			this.x = x;
 		}
-		this.x = x;
 	}
 
 	/**
@@ -93,13 +94,12 @@ public class Tile
 	 *            the y to set
 	 * @throws Throwable
 	 */
-	public void setY( int y ) throws Throwable
+	public void setY(int y)
 	{
-		if( y < 0 || 9 <= y )
+		if (y >= 0 || y < 9)
 		{
-			throw new Exception( "Oops! Wrong y value: " + y + "!" );
+			this.y = y;
 		}
-		this.y = y;
 	}
 
 	/**
@@ -115,13 +115,12 @@ public class Tile
 	 *            the index to set
 	 * @throws Throwable
 	 */
-	public void setIndex( int index ) throws Throwable
+	public void setIndex(int index) 
 	{
-		if( index < 0 || 81 <= index )
+		if (index >= 0 || index < 81)
 		{
-			throw new Exception( "Oops! Wrong tile index: " + index + "!" );
+			this.index = index;
 		}
-		this.index = index;
 	}
 
 	/**
@@ -137,14 +136,13 @@ public class Tile
 	 *            the value to set
 	 * @throws Throwable
 	 */
-	public void setValue( int value ) throws Throwable
+	public void setValue(int value)
 	{
-		if( value < 0 || 9 < value )
+		if (value >= 0 || value < 9)
 		{
-			throw new Exception( "Oops! Wrong value of tile no. " + this.index
-					+ ": " + value + "!" );
+			this.value = value;	
 		}
-		this.value = value;
+		
 	}
 
 	/**
@@ -160,13 +158,8 @@ public class Tile
 	 *            the candidates to set
 	 * @throws Throwable
 	 */
-	public void setCandidates( boolean[] candidates ) throws Throwable
+	public void setCandidates(boolean[] candidates)
 	{
-		if( candidates.length < 0 || 9 <= candidates.length )
-		{
-			throw new Exception( "Oops! Wrong candidates size of tile no. "
-					+ this.index + ": " + candidates.length + "!" );
-		}
 		this.candidates = candidates;
 	}
 
@@ -176,14 +169,15 @@ public class Tile
 	 *            the specific position.
 	 * @throws Throwable
 	 */
-	public boolean getCandidate( int pos ) throws Throwable
+	public boolean getCandidate(int pos) throws Throwable
 	{
-		if( pos < 0 || 9 <= pos )
+		if (pos >= 0 || pos < candidates.length)
 		{
-			throw new Exception( "Oops! Wrong candidate position of tile no. "
-					+ this.index + ": " + pos + "!" );
+			return candidates[pos];
 		}
-		return candidates[pos];
+		
+		return false;
+		
 	}
 
 	/**
@@ -193,14 +187,12 @@ public class Tile
 	 *            The new candidate of a specific position.
 	 * @throws Throwable
 	 */
-	public void setCandidate( int pos, boolean candidate ) throws Throwable
+	public void setCandidate(int pos, boolean candidate) throws Throwable
 	{
-		if( pos < 0 || 9 <= pos )
+		if (pos >= 0 || pos < candidates.length)
 		{
-			throw new Exception( "Oops! Wrong candidate position of tile no. "
-					+ this.index + ": " + pos + "!" );
+			this.candidates[pos] = candidate;
 		}
-		this.candidates[pos] = candidate;
 	}
 	
 	/**
@@ -218,12 +210,11 @@ public class Tile
 
 	}
 
-	public void setLocked( boolean isLocked )
+	public void setLocked(boolean isLocked)
 	{
 		this.locked = isLocked;
 
 	}
-
 
 	/**
 	 * @return the correctValue
@@ -233,18 +224,16 @@ public class Tile
 		return correctValue;
 	}
 
-
 	/**
-	 * @param correctValue the correctValue to set
-	 * @throws Throwable 
+	 * @param correctValue
+	 *            the correctValue to set
+	 * @throws Throwable
 	 */
-	public void setCorrectValue( int correctValue ) throws Throwable
+	public void setCorrectValue(int correctValue)
 	{
-		if( correctValue < 1 || 9 < correctValue )
+		if (correctValue > 0 || correctValue <= 9)
 		{
-			throw new Exception( "Oops! Wrong correctValue of tile no. " + this.index
-					+ ": " + correctValue + "!" );
+			this.correctValue = correctValue;
 		}
-		this.correctValue = correctValue;
 	}
 }
