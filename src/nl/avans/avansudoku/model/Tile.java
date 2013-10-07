@@ -41,12 +41,11 @@ public class Tile
 		this.setCorrectValue(correctValue);
 	}
 
-	public Tile(int index, int value, boolean isLocked,
-			int correctValue) 
+	public Tile(int index, int value, boolean isLocked, int correctValue)
 	{
 		int x = index % 9;
 		int y = index / 9;
-		
+
 		this.setX(x);
 		this.setY(y);
 		this.setIndex(index);
@@ -115,7 +114,7 @@ public class Tile
 	 *            the index to set
 	 * @throws Throwable
 	 */
-	public void setIndex(int index) 
+	public void setIndex(int index)
 	{
 		if (index >= 0 || index < 81)
 		{
@@ -140,9 +139,9 @@ public class Tile
 	{
 		if (value >= 0 || value < 9)
 		{
-			this.value = value;	
+			this.value = value;
 		}
-		
+
 	}
 
 	/**
@@ -175,9 +174,9 @@ public class Tile
 		{
 			return candidates[pos];
 		}
-		
+
 		return false;
-		
+
 	}
 
 	/**
@@ -194,7 +193,7 @@ public class Tile
 			this.candidates[pos] = candidate;
 		}
 	}
-	
+
 	/**
 	 * @return the amount of candidates of this tile
 	 */
@@ -202,7 +201,6 @@ public class Tile
 	{
 		return candidates.length;
 	}
-	
 
 	public boolean isLocked()
 	{

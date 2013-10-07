@@ -19,10 +19,10 @@ public interface GameState
 
 	public abstract ArrayList<Integer> getPossibilities(int x, int y);
 
-	public abstract Tile getTile( int index );
-	
-	public abstract Tile getTile( int x, int y );
-	
+	public abstract Tile getTile(int index);
+
+	public abstract Tile getTile(int x, int y);
+
 	public abstract Tile[] getRow(int atX);
 
 	public abstract void setRow(int atX, Tile[] modifiedTiles);
@@ -36,6 +36,6 @@ public interface GameState
 	public abstract void setBlock(int atX, int atY, Tile[] modifiedTiles);
 
 	public abstract Tile askHintAction();
-		
+
 	public abstract Boolean checkNewState();
 }

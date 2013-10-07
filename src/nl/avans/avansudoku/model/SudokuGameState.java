@@ -18,7 +18,7 @@ public class SudokuGameState implements GameState
 		for (int i = 0; i < tiles.length; i++)
 			tiles[i] = new Tile(i, 0, false, 0);
 	}
-	
+
 	@Override
 	public SudokuGameState addStartState(Tile[] tiles)
 	{
@@ -77,7 +77,7 @@ public class SudokuGameState implements GameState
 	{
 		return tiles[(y * 9) + x];
 	}
-	
+
 	public Tile getTile(int idx)
 	{
 		return tiles[idx];
@@ -281,7 +281,7 @@ public class SudokuGameState implements GameState
 	@Override
 	public Tile askHintAction()
 	{
-		//TODO: Fixen, placeholder:
+		// TODO: Fixen, placeholder:
 		return null;
 		// return new Tile(2,5);
 	}
