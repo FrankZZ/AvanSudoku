@@ -1,7 +1,7 @@
 package nl.avans.avansudoku.model;
 
-import java.util.ArrayList;
 import java.util.EmptyStackException;
+
 
 public interface GameState
 {
@@ -17,9 +17,11 @@ public interface GameState
 
 	public abstract Tile retrieveUndoAction() throws Throwable;
 
-	public abstract ArrayList<Integer> getPossibilities(int x, int y);
-
 	public abstract Tile getTile(int index);
+	
+	public abstract void setTileValue(int index, int value);
+	
+	public abstract void setTileValue(int x, int y, int value);
 
 	public abstract Tile getTile(int x, int y);
 

@@ -17,6 +17,7 @@ import android.graphics.Paint;
 import android.graphics.RectF;
 import android.graphics.Paint.Style;
 import android.graphics.drawable.BitmapDrawable;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -116,16 +117,22 @@ public class GameActivity extends Activity
 		try
 		{
 			// sudokuveld =
-			SudokuGameState gameState = sudokucreater.generateTiles(); // geeft
+			SudokuGameState gameState = sudokucreater.getGameState(); // geeft
 																		// hopelijk
 																		// iets
 																		// terug
-
+			String str = "";
 			for (int i = 0; i < 81; i++)
 			{
+				if (i % 9 == 0)
+					str += "\n";
+				
 				sudokuveld[i] = gameState.getTile(i).getValue();
+				str += gameState.getTile(i).getValue();
+				
+				
 			}
-
+			Log.d("dfa", str);
 			// sudokugamestate.setStartState(sudokuveld);
 			redrawSudokuAll();
 		}

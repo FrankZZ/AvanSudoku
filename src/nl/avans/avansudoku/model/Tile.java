@@ -21,6 +21,8 @@ public class Tile
 	private int			value;
 
 	private boolean[]	candidates;
+	
+	private int			candidateCount;
 
 	private boolean		locked;
 
@@ -32,31 +34,20 @@ public class Tile
 		this.setY(y);
 		this.setIndex((y * 9) + x);
 		this.setValue(value);
-		this.setCandidates(new boolean[9]);
+		this.candidates = new boolean[9];
+		this.candidateCount = 9;
 		for (int i = 0; i < candidates.length; i++)
 		{
-			this.candidates[i] = false;
+			this.candidates[i] = true;
 		}
+		
 		this.setLocked(isLocked);
 		this.setCorrectValue(correctValue);
 	}
 
 	public Tile(int index, int value, boolean isLocked, int correctValue)
 	{
-		int x = index % 9;
-		int y = index / 9;
-
-		this.setX(x);
-		this.setY(y);
-		this.setIndex(index);
-		this.setValue(value);
-		this.setCandidates(new boolean[9]);
-		for (int i = 0; i < candidates.length; i++)
-		{
-			this.candidates[i] = false;
-		}
-		this.setLocked(isLocked);
-		this.setCorrectValue(correctValue);
+		this(index % 9, index / 9, value, isLocked, correctValue);
 	}
 
 	/**
@@ -151,16 +142,12 @@ public class Tile
 	{
 		return candidates;
 	}
-
-	/**
-	 * @param candidates
-	 *            the candidates to set
-	 * @throws Throwable
-	 */
-	public void setCandidates(boolean[] candidates)
-	{
-		this.candidates = candidates;
+	
+	public int getCandidateCount()
+	{	
+		return candidateCount;
 	}
+
 
 	/**
 	 * @return The given candidate of a specific position.
@@ -168,7 +155,7 @@ public class Tile
 	 *            the specific position.
 	 * @throws Throwable
 	 */
-	public boolean getCandidate(int pos) throws Throwable
+	public boolean getCandidate(int pos)
 	{
 		if (pos >= 0 || pos < candidates.length)
 		{
@@ -186,20 +173,19 @@ public class Tile
 	 *            The new candidate of a specific position.
 	 * @throws Throwable
 	 */
-	public void setCandidate(int pos, boolean candidate) throws Throwable
+	public void setCandidate(int pos, boolean candidate)
 	{
+		pos--;
 		if (pos >= 0 || pos < candidates.length)
 		{
+			// Als pos nog geen candidate was, dan count 1 ophogen. andersom ook
+			if (candidate == true && candidates[pos] != true )
+				candidateCount++;
+			else if (candidate == false && candidates[pos] != false)
+				candidateCount--;
+			
 			this.candidates[pos] = candidate;
 		}
-	}
-
-	/**
-	 * @return the amount of candidates of this tile
-	 */
-	public int getAmountOfCandidates()
-	{
-		return candidates.length;
 	}
 
 	public boolean isLocked()

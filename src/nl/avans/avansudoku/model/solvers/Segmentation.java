@@ -49,7 +49,7 @@ public class Segmentation implements SolverTechnique
 				int yOfSelectedTile = firstSelectedTile.getY();
 
 				// Step 1: search for a tile with candidates:
-				if (firstSelectedTile.getAmountOfCandidates() > 0)
+				if (firstSelectedTile.getCandidateCount() > 0)
 				{
 					// Step 2: Pick a candidate:
 					boolean[] candidatesOfSelectedTile = firstSelectedTile

@@ -41,7 +41,7 @@ public final class Triplets implements SolverTechnique
 		{
 			Tile tile1 = gamestate.getTile(i);
 			
-			if (tile1.getAmountOfCandidates() >= 3)
+			if (tile1.getCandidateCount() >= 3)
 			{
 				int colStart = tile1.getX();
 				int rowStart = tile1.getY();
