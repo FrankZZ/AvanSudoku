@@ -21,13 +21,6 @@ public class NakedSingle implements SolverTechnique
 	{
 		return ns;
 	}
-	
-	//TODO Auto-generated method stub
-	// Kies een cel. Ga ervan uit dat alle tien de getallen erin kunnen.
-	// Kijk horizontaal en streep de getallen weg die al in de rij voorkomen.
-	// Kijk verticaal en streep de getallen weg die al in die rij voorkomen.
-	// Kijk in het 3x3 cel en streep de getallen weg dia al in die rij voorkomen.
-	// Herhaal dit tot je een cel tegen komt, waar nog maar een getal ingevuld kan worden.
 
 	// Elke iteratie solved hij tiles die 1 candidate hebben
 	// Als er geen tiles gesolved worden dan is de hele puzzel unsolvable
@@ -72,5 +65,70 @@ public class NakedSingle implements SolverTechnique
 			return true; // Nee, alles solved -> return true
 		else
 			return solve(gameState); // Ja, volgende iteratie
+	}
+
+	public boolean solve2(GameState gamestate)
+	{
+		// TODO Auto-generated method stub
+		// Kies een cel. Ga ervan uit dat alle tien de getallen erin kunnen.
+		// Kijk horizontaal en streep de getallen weg die al in de rij voorkomen.
+		// Kijk verticaal en streep de getallen weg die al in die rij voorkomen.
+		// Kijk in het 3x3 cel en streep de getallen weg dia al in die rij voorkomen.
+		// Herhaal dit tot je een cel tegen komt, waar nog maar een getal ingevuld kan worden.
+
+		//create an array with 9*9 values (one for each tile); each with an array of 9 kandidates.
+		boolean[][] possibilities = new boolean[9*9][9];
+		for (int i = 0; i < 81; i++)
+		{
+			for (int j = 0; j < 9; j++)
+			{
+				possibilities[i][j] = true;
+			}
+		}
+
+		for (int x = 0; x < 9; x++)
+		{
+			int xPosition = x * 9; //for writing to the single dimension array
+			Tile[] currentRow = gamestate.getRow(x);
+			for(int y = 0; y < 9; y++)
+			{
+				int position = xPosition + y;
+				Tile currentTile;
+
+				//check if current tile has a value
+				currentTile = gamestate.getTile(x, y);
+				if (currentTile.getValue() != 0)
+				{
+					//if so; set all other values to false.
+					for(int i = 0; i < 9; i++ )
+					{
+						if (i != currentTile.getValue())
+							possibilities[position][i] = false;
+					}
+				}
+				else
+				{
+					//if not; check the row and remove candidates
+					currentTile = currentRow[x];
+					if(currentTile.getValue() != 0);
+					{
+						for(int i = 0; i < 9; i++)
+							possibilities[position][i] = false;
+					}
+
+					if(currentTile.getValue() != 0)
+					{
+						for(int i = 0; i < 9; i++)
+							possibilities[position][i] = false;
+					}
+					Tile[] currentColumn = gamestate.getColumn(y);
+
+					Tile[] currentBlock = gamestate.getBlock(x, y);
+
+				}
+			}
+		}
+
+		return false;
 	}
 }

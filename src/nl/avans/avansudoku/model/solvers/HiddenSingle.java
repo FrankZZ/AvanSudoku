@@ -18,7 +18,6 @@ public class HiddenSingle implements SolverTechnique
 		for (int i = 0; i < 81; i++)
 			pendingTiles.add(i);
 
-		// TODO Auto-generated method stub
 		// Kijk of er een rij is waar een kandidaat maar een keer voor komt
 		// Kijk of er een kolom is waar een kandidaat maar een keer voor komt
 		// kijk of er een blok is waar een kandidaat maar een keer voor komt
