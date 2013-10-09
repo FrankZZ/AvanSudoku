@@ -122,9 +122,9 @@ public class SudokuGameState implements GameState
 	 * Add a candidate to all neighbor tiles in the block, x and y axis. Removes
 	 * the previous value of the origin tile from other candidates too
 	 */
-	private void addCandidateToNeighborTiles(int x, int y, int candidate)
+	private void addCandidateToNeighborTiles(int x, int y, int value)
 	{
-		int prevCandidate = getTile(x, y).getValue();
+		int prevValue = getTile(x, y).getValue();
 
 		int blockX = (x / 3) * 3;
 		int blockY = (y / 3) * 3;
@@ -140,11 +140,11 @@ public class SudokuGameState implements GameState
 				Tile TileX = getTile(x, i);
 
 				// Vorige value weer candidate maken
-				if (prevCandidate > 0)
-					TileX.setCandidate(prevCandidate, true);
+				if (prevValue > 0)
+					TileX.setCandidate(prevValue, true);
 
 				// Nieuwe value geen candidate maken
-				TileX.setCandidate(candidate, false);
+				TileX.setCandidate(value, false);
 			}
 
 			// Zichzelf overslaan binnen de Y as
@@ -153,11 +153,11 @@ public class SudokuGameState implements GameState
 				Tile TileY = getTile(i, y);
 
 				// Vorige value weer candidate maken
-				if (prevCandidate > 0)
-					TileY.setCandidate(prevCandidate, true);
+				if (prevValue > 0)
+					TileY.setCandidate(prevValue, true);
 
 				// Nieuwe value geen candidate maken
-				TileY.setCandidate(candidate, false);
+				TileY.setCandidate(value, false);
 			}
 
 			// Zichzelf overslaan binnen het block
@@ -166,11 +166,11 @@ public class SudokuGameState implements GameState
 				Tile BlockTile = getTile(x, i);
 
 				// Vorige value weer candidate maken
-				if (prevCandidate > 0)
-					BlockTile.setCandidate(prevCandidate, true);
+				if (prevValue > 0)
+					BlockTile.setCandidate(prevValue, true);
 
 				// Nieuwe value geen candidate maken
-				BlockTile.setCandidate(candidate, false);
+				BlockTile.setCandidate(value, false);
 			}
 		}
 	}
