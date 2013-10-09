@@ -95,6 +95,12 @@ public class SudokuGameState implements GameState
 	{
 		return tiles[idx];
 	}
+	
+	@Override
+	public Tile[] getTiles()
+	{
+		return tiles;
+	}
 
 	/*
 	 * @author Frank Wammes

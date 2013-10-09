@@ -37,7 +37,7 @@ public interface GameState
 
 	public abstract void setBlock(int atX, int atY, Tile[] modifiedTiles);
 
-	public abstract Tile askHintAction();
+	public abstract Tile askHintAction(); // Debate if this needs solver access
 
 	public abstract Boolean checkNewState();
 }
