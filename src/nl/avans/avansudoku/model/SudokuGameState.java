@@ -2,7 +2,6 @@ package nl.avans.avansudoku.model;
 
 import java.util.ArrayList;
 import java.util.EmptyStackException;
-import java.util.Random;
 import java.util.Stack;
 
 public class SudokuGameState implements GameState
@@ -73,6 +72,20 @@ public class SudokuGameState implements GameState
 		tiles[(y * 9) + x] = tile;
 	}
 
+	public void setTileValue(int x, int y, int value)
+	{
+		setTileValue(x * y, value);
+	}
+
+	public void setTileValue(int index, int value)
+	{
+		// Nieuwe value aan neighbor candidates toevoegen
+		addCandidateToNeighborTiles(index, value);
+		
+		// De waarde setten
+		getTile(index).setValue(value);
+	}
+
 	public Tile getTile(int x, int y)
 	{
 		return tiles[(y * 9) + x];
@@ -83,82 +96,126 @@ public class SudokuGameState implements GameState
 		return tiles[idx];
 	}
 
-	public ArrayList<Integer> getPossibilities(int x, int y)
+	/*
+	 * @author Frank Wammes
+	 * 
+	 * @desc Alle tiles doorlopen en overal de candidates instellen.
+	 */
+	public void processCandidates()
 	{
-		// Alle gebruikte tiles op true
-		boolean[] possibilities = new boolean[9];
-		Integer tileIdx = 0;
+		for (int x = 0; x < 9; x++)
+		{
+			for (int y = 0; y < 9; y++)
+			{
+				processNeighborTileCandidates(x, y);
+			}
+		}
+	}
+
+	/*
+	 * Add a candidate to all neighbor tiles in the block, x and y axis. Removes
+	 * the previous value of the origin tile from other candidates too
+	 */
+	private void addCandidateToNeighborTiles(int x, int y, int value)
+	{
+		int prevValue = getTile(x, y).getValue();
+
+		int blockX = (x / 3) * 3;
+		int blockY = (y / 3) * 3;
+		int blockIdx = blockX * blockY;
 
 		for (int i = 0; i < 9; i++)
 		{
-			Tile tileX = getTile(i, y);
-			Tile tileY = getTile(x, i);
+			// We itereren over de X en Y as en de block in 1 loop
 
-			// Niet zichzelf tegenkomen en tile niet leeg
-			if (i != x && tileX.getValue() > 0)
+			// Zichzelf overslaan binnen de X as
+			if (y != i)
 			{
-				possibilities[tileX.getValue() - 1] = true;
-				tileIdx++;
+				Tile TileX = getTile(x, i);
+
+				// Vorige value weer candidate maken
+				if (prevValue > 0)
+					TileX.setCandidate(prevValue, true);
+
+				// Nieuwe value geen candidate maken
+				TileX.setCandidate(value, false);
 			}
-			if (i != y && tileY.getValue() > 0)
+
+			// Zichzelf overslaan binnen de Y as
+			if (x != i)
 			{
-				possibilities[tileY.getValue() - 1] = true;
-				tileIdx++;
+				Tile TileY = getTile(i, y);
+
+				// Vorige value weer candidate maken
+				if (prevValue > 0)
+					TileY.setCandidate(prevValue, true);
+
+				// Nieuwe value geen candidate maken
+				TileY.setCandidate(value, false);
 			}
 
-		}
-
-		int blockStartX = (x / 3) * 3;
-		int blockStartY = (y / 3) * 3;
-
-		for (int xx = blockStartX; xx < blockStartX + 3; xx++)
-		{
-			for (int yy = blockStartY; yy < blockStartY + 3; yy++)
+			// Zichzelf overslaan binnen het block
+			if ((blockIdx + i) != (x * y))
 			{
-				// Niet zichzelf tegenkomen
-				if (xx == x && yy == y)
-					continue;
+				Tile BlockTile = getTile(x, i);
 
-				Tile tile = getTile(xx, yy);
+				// Vorige value weer candidate maken
+				if (prevValue > 0)
+					BlockTile.setCandidate(prevValue, true);
 
-				// Tile niet leeg
-				if (tile.getValue() > 0)
-				{
-					possibilities[tile.getValue() - 1] = true;
-					tileIdx++;
-				}
-			}
-		}
-
-		// Vertalen naar array met ONgebruikte tiles
-		ArrayList<Integer> arr = new ArrayList<Integer>();
-
-		for (int i = 0; i < possibilities.length; i++)
-		{
-			boolean p = possibilities[i];
-
-			if (p == false)
-			{
-				arr.add(i + 1);
+				// Nieuwe value geen candidate maken
+				BlockTile.setCandidate(value, false);
 			}
 		}
-		// Log.e("arl", arr.size() + "");
-
-		return arr;
 	}
 
-	public int getRandomOption(int x, int y) throws Exception
+	private void addCandidateToNeighborTiles(int index, int candidate)
 	{
-		ArrayList<Integer> poss = getPossibilities(x, y);
+		addCandidateToNeighborTiles(index % 9, index / 9, candidate);
+	}
 
-		Random randomGenerator = new Random();
+	private void processNeighborTileCandidates(int x, int y)
+	{
+		Tile currentTile = getTile(x, y);
 
-		if (poss.size() == 0)
-			throw new Exception("ERROR NO POSSIBILITIES, UNDO! " + x + " " + y);
+		int blockX = (x / 3) * 3;
+		int blockY = (y / 3) * 3;
+		int blockIdx = blockX * blockY;
 
-		int randomInt = randomGenerator.nextInt(poss.size());
+		for (int i = 0; i < 9; i++)
+		{
+			// We itereren over de X en Y as en de block in 1 loop
 
-		return poss.get(randomInt);
+			// Zichzelf overslaan binnen de X as
+			if (y != i)
+			{
+				Tile tileY = getTile(x, i);
+				processTileCandidate(currentTile, tileY);
+			}
+
+			// Zichzelf overslaan binnen de Y as
+			if (x != i)
+			{
+				Tile tileX = getTile(i, y);
+				processTileCandidate(currentTile, tileX);
+			}
+
+			// Zichzelf overslaan binnen het block
+			if ((blockIdx + i) != (x * y))
+			{
+				Tile tileBlock = getTile(blockIdx + i);
+				processTileCandidate(currentTile, tileBlock);
+			}
+		}
+	}
+
+	private void processTileCandidate(Tile tile, Tile otherTile)
+	{
+		// tile niet leeg
+		if (otherTile.getValue() > 0)
+		{
+			tile.setCandidate(otherTile.getValue(), false);
+		}
 	}
 
 	@Override

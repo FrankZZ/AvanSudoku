@@ -1,5 +1,6 @@
 package nl.avans.avansudoku;
 
+import nl.avans.avansudoku.control.SudokuCreator;
 import nl.avans.avansudoku.model.SudokuGameState;
 import nl.avans.avansudoku.model.Tile;
 import android.content.Context;
@@ -50,55 +51,13 @@ public class Game
 
 	public void startGame() throws Throwable
 	{
-		SudokuGameState gameState = new SudokuGameState();
-		String str = "";
-
-		int i = 0;
-		int timesReverted = 0;
-
-		while( i < ( 9 * 9 ) && timesReverted < 3 )
-		{
-			int x = i % 9;
-			int y = i / 9;
-
-			Integer poss;
-			try
-			{
-				poss = gameState.getRandomOption( x, y );
-				gameState.setTile( x, y, new Tile( x, y, poss.intValue(), true, 1 ) );
-				str += poss;
-			}
-			catch( Exception e )
-			{
-				// Log.e("Failure", "Collission detected. Tried " +
-				// timesReverted + " already");
-
-				// failed dus 3 stapjes terug
-
-				for( int j = 0; j < 3; j++ )
-				{
-					i--;
-					int xx = i % 9;
-					int yy = i / 9;
-//					gameState.setTile( new Tile( xx, yy, 0, true ) );
-
-				}
-				
-				timesReverted++;
-				continue;
-
-			}
-			str += "\n";
-
-			i++;
-		}
-
-		// System.out.println(str);
-		// Log.d("STATE", str);
-
-		if( timesReverted < 3 )
-			done = true;
-
+		// TODO: Dit is overbodig, staat al in GameActivity
+		/*
+		SudokuCreator sudokuCreator = new SudokuCreator();
+		sudokuCreator.CreateGame();
+		
+		SudokuGameState gameState = sudokuCreator.getGameState();
+		*/
 		// Toast.makeText(ctx, str, Toast.LENGTH_LONG).show();
 	}
 

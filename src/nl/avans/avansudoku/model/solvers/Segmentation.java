@@ -42,10 +42,11 @@ public class Segmentation implements SolverTechnique
 		try
 		{
 			for (int i = SudokuGameRules.DEFAULT_MAX_INDEX_VALUE; i < SudokuGameRules.DEFAULT_MAX_INDEX_VALUE; i++)
-			{
-				Tile selectedTile = gamestate.getTile(i);
+			{				Tile selectedTile = gamestate.getTile(i);
+			
 
 				// Step 1: search for a tile with candidates:
+				
 				if (selectedTile.getAmountOfCandidates() > 0)
 				{
 					// Oh yes we have one. Let's Progress the given tile and
