@@ -65,7 +65,7 @@ public class Tile
 	 */
 	public void setX(int x)
 	{
-		if (x >= 0 || x < 9)
+		if (x >= 0 && x < 9)
 		{
 			this.x = x;
 		}
@@ -86,7 +86,7 @@ public class Tile
 	 */
 	public void setY(int y)
 	{
-		if (y >= 0 || y < 9)
+		if (y >= 0 && y < 9)
 		{
 			this.y = y;
 		}
@@ -107,7 +107,7 @@ public class Tile
 	 */
 	public void setIndex(int index)
 	{
-		if (index >= 0 || index < 81)
+		if (index >= 0 && index < 81)
 		{
 			this.index = index;
 		}
@@ -128,7 +128,7 @@ public class Tile
 	 */
 	public void setValue(int value)
 	{
-		if (value >= 0 || value < 9)
+		if (value >= 0 && value <= 9)
 		{
 			this.value = value;
 		}
@@ -155,9 +155,11 @@ public class Tile
 	 *            the specific position.
 	 * @throws Throwable
 	 */
-	public boolean getCandidate(int pos)
+	public boolean isCandidate(int pos)
 	{
-		if (pos >= 0 || pos < candidates.length)
+		pos--;
+		
+		if (pos >= 0 && pos < candidates.length)
 		{
 			return candidates[pos];
 		}
@@ -176,7 +178,7 @@ public class Tile
 	public void setCandidate(int pos, boolean candidate)
 	{
 		pos--;
-		if (pos >= 0 || pos < candidates.length)
+		if (pos >= 0 && pos < candidates.length)
 		{
 			// Als pos nog geen candidate was, dan count 1 ophogen. andersom ook
 			if (candidate == true && candidates[pos] != true )
@@ -215,7 +217,7 @@ public class Tile
 	 */
 	public void setCorrectValue(int correctValue)
 	{
-		if (correctValue > 0 || correctValue <= 9)
+		if (correctValue > 0 && correctValue <= 9)
 		{
 			this.correctValue = correctValue;
 		}

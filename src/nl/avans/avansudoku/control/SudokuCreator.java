@@ -40,7 +40,7 @@ public class SudokuCreator implements GameCreator
 		gameState = new SudokuGameState();
 
 		int i = 0, timesReverted = 0;
-
+		int lastRevert = -1;
 		while (i < (9 * 9))
 		{
 
@@ -56,9 +56,22 @@ public class SudokuCreator implements GameCreator
 			}
 			catch (Exception e)
 			{
+				if (lastRevert == i)
+				{
+					Log.e("Sudoku", "I'm stuck!");
+					
+					gameState = new SudokuGameState();
+					
+					i = 0;
+					
+					continue;
+				}
+				
+				lastRevert = i;
+				
 				Log.e("SUDOKU", "aaaa");
-				// Geen candidates: failed dus 3 stapjes terug
-				for (int j = 0; j < 3; j++)
+				// Geen candidates: failed dus 9 stapjes terug
+				for (int j = 0; j < 9; j++)
 				{
 					i--;
 					int xx = i % 9;

@@ -161,7 +161,7 @@ public class Segmentation implements SolverTechnique
 			Tile secondSelectedTile = tiles[k];
 
 			// Check if that tile has the same candidate:
-			if (secondSelectedTile.getCandidate(candidate))
+			if (secondSelectedTile.isCandidate(candidate))
 			{
 				// it is.
 				int yOfCandidateMatchedTile = secondSelectedTile.getY();
@@ -221,7 +221,7 @@ public class Segmentation implements SolverTechnique
 
 			// Check if there is a Tile in the Block with the given candidate,
 			// of course not the Tile with the given X and Y!
-			if (selectedTile.getCandidate(candidate)
+			if (selectedTile.isCandidate(candidate)
 					&& selectedTile.getX() != xIsInThisBlock
 					&& selectedTile.getY() != yIsInThisBlock)
 			{

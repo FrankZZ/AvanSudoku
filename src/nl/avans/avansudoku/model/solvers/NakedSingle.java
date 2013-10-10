@@ -40,7 +40,7 @@ public class NakedSingle implements SolverTechnique
 				// De enige candidate verkrijgen en setten als value
 				for (int j = 0; j < 9; j++)
 				{
-					if (tile.getCandidate(j))
+					if (tile.isCandidate(j + 1))
 					{
 						gameState.setTileValue(i, j);
 
