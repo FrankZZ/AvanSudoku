@@ -76,7 +76,7 @@ public class SudokuCreator implements GameCreator
 	{
 		Tile tile = gameState.getTile(x, y);
 
-		// Zijn er nog candidates over?
+		// Geef een exceptie als er geen candidaten meer zijn voor deze cel/tegel
 		if (tile.getCandidateCount() == 0)
 			throw new Exception(
 					"SudokuCreator::getRandomOption(): No candidates left for ("
