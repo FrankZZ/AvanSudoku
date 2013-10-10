@@ -8,8 +8,8 @@ import nl.avans.avansudoku.model.Tile;
 
 /**
  * @author Rick van Son
- * @version 1.0
- * @since 2013-09-18
+ * @version 1.1
+ * @since 2013-10-07
  * 
  * 
  *        This class checks if the user input is valid.
@@ -27,6 +27,12 @@ public class SudokuGameRules extends GameRules
 	public static final int DEFAULT_MIN_INDEX_VALUE = 0;
 	public static final int DEFAULT_MAX_INDEX_VALUE = 80;
 	public static final int DEFAULT_AMOUNT_OF_TILES = 81;
+
+	public static final int DEFAULT_AMOUNT_OF_ROWS = 9;
+	public static final int DEFAULT_AMOUNT_OF_COLUMNS = 9;
+	public static final int DEFAULT_AMOUNT_OF_BLOCKS = 9;
+	
+	
 
 	public SudokuGameRules()
 	{
