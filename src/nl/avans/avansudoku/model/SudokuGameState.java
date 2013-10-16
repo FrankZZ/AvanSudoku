@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.EmptyStackException;
 import java.util.Stack;
 
+import android.util.Log;
+
 public class SudokuGameState implements GameState
 {
 
@@ -74,7 +76,7 @@ public class SudokuGameState implements GameState
 
 	public void setTileValue(int x, int y, int value)
 	{
-		setTileValue(x * y, value);
+		setTileValue((y * 9) + x, value);
 	}
 
 	public void setTileValue(int index, int value)
@@ -155,9 +157,9 @@ public class SudokuGameState implements GameState
 			}
 
 			// Zichzelf overslaan binnen het block
-			if ((blockIdx + i) != (x * y))
+			if ((blockIdx + i) != ((y * 9) + x))
 			{
-				Tile BlockTile = getTile(x, i);
+				Tile BlockTile = getTile(blockIdx + i);
 
 				// Vorige value weer candidate maken
 				if (prevValue > 0)
@@ -180,7 +182,7 @@ public class SudokuGameState implements GameState
 
 		int blockX = (x / 3) * 3;
 		int blockY = (y / 3) * 3;
-		int blockIdx = blockX * blockY;
+		int blockIdx = (blockY * 9) + blockX;
 
 		for (int i = 0; i < 9; i++)
 		{
@@ -190,21 +192,21 @@ public class SudokuGameState implements GameState
 			if (y != i)
 			{
 				Tile tileY = getTile(x, i);
-				processTileCandidate(currentTile, tileY);
+				processTileCandidate(tileY, currentTile);
 			}
 
 			// Zichzelf overslaan binnen de Y as
 			if (x != i)
 			{
 				Tile tileX = getTile(i, y);
-				processTileCandidate(currentTile, tileX);
+				processTileCandidate(tileX, currentTile);
 			}
 
 			// Zichzelf overslaan binnen het block
-			if ((blockIdx + i) != (x * y))
+			if ((blockIdx + i) != ((y * 9) + x))
 			{
 				Tile tileBlock = getTile(blockIdx + i);
-				processTileCandidate(currentTile, tileBlock);
+				processTileCandidate(tileBlock, currentTile);
 			}
 		}
 	}
