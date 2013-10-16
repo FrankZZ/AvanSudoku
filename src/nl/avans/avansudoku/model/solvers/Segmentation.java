@@ -42,11 +42,11 @@ public class Segmentation implements SolverTechnique
 		try
 		{
 			for (int i = SudokuGameRules.DEFAULT_MAX_INDEX_VALUE; i < SudokuGameRules.DEFAULT_MAX_INDEX_VALUE; i++)
-			{				Tile selectedTile = gamestate.getTile(i);
-			
+			{
+				Tile selectedTile = gamestate.getTile(i);
 
 				// Step 1: search for a tile with candidates:
-				
+
 				if (selectedTile.getCandidateCount() > 0)
 				{
 					// Oh yes we have one. Let's Progress the given tile and
@@ -92,17 +92,19 @@ public class Segmentation implements SolverTechnique
 				// Pick the other tiles of the row of the selected tile:
 				Tile[] rowOfSelectedTile = gamestate.getRow(xOfSelectedTile);
 
-				boolean[] whichTilesInRowHaveSameCandidate = checkTilesOnHavingSameCandidate(
-						gamestate, rowOfSelectedTile, true, selectedCandidate,
-						xOfSelectedTile, yOfSelectedTile);
+				boolean[] whichTilesInRowHaveSameCandidate = this
+						.checkTilesOnHavingSameCandidate(gamestate,
+								rowOfSelectedTile, true, selectedCandidate,
+								xOfSelectedTile, yOfSelectedTile);
 
 				// Pick the other tiles of the column of the selected tile:
 				Tile[] columnOfSelectedTile = gamestate
 						.getColumn(yOfSelectedTile);
 
-				boolean[] whichTilesInColumnHaveSameCandidate = checkTilesOnHavingSameCandidate(
-						gamestate, columnOfSelectedTile, false,
-						selectedCandidate, xOfSelectedTile, yOfSelectedTile);
+				boolean[] whichTilesInColumnHaveSameCandidate = this
+						.checkTilesOnHavingSameCandidate(gamestate,
+								columnOfSelectedTile, false, selectedCandidate,
+								xOfSelectedTile, yOfSelectedTile);
 
 				// Now, check the results of the previous two checks if we could
 				// remove the selected candidate of the selected tile.
@@ -116,11 +118,10 @@ public class Segmentation implements SolverTechnique
 					{
 						couldCandidateOfFirstSelectedTileBeRemoved = true;
 					}
-					else
-						if (whichTilesInColumnHaveSameCandidate[k])
-						{
-							couldCandidateOfFirstSelectedTileBeRemoved = true;
-						}
+					else if (whichTilesInColumnHaveSameCandidate[k])
+					{
+						couldCandidateOfFirstSelectedTileBeRemoved = true;
+					}
 				}
 
 				if (couldCandidateOfFirstSelectedTileBeRemoved)
@@ -180,16 +181,15 @@ public class Segmentation implements SolverTechnique
 									gamestate, candidate, xOfSelectedTile,
 									yOfCandidateMatchedTile, true, false);
 				}
-				else
-					if (!checkTilesAsRow
-							&& xOfCandidateMatchedTile != xOfSelectedTile)
-					{
-						whichTilesHaveSameCandidate[k] = this
-								.checkIfThisCandidateIsntInOtherTilesOfTheBlock(
-										gamestate, candidate,
-										xOfCandidateMatchedTile,
-										yOfSelectedTile, false, true);
-					}
+				else if (!checkTilesAsRow
+						&& xOfCandidateMatchedTile != xOfSelectedTile)
+				{
+					whichTilesHaveSameCandidate[k] = this
+							.checkIfThisCandidateIsntInOtherTilesOfTheBlock(
+									gamestate, candidate,
+									xOfCandidateMatchedTile, yOfSelectedTile,
+									false, true);
+				}
 			}
 		}
 		return whichTilesHaveSameCandidate;
@@ -230,12 +230,11 @@ public class Segmentation implements SolverTechnique
 				{
 					return true;
 				}
-				else
-					if (ignoreGivenYAxis
-							&& selectedTile.getY() != yIsInThisBlock)
-					{
-						return true;
-					}
+				else if (ignoreGivenYAxis
+						&& selectedTile.getY() != yIsInThisBlock)
+				{
+					return true;
+				}
 			}
 		}
 		return false;
