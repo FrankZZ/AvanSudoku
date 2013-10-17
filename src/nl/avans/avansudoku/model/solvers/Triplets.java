@@ -41,7 +41,7 @@ public final class Triplets implements SolverTechnique
 		{
 			Tile tile1 = gamestate.getTile(i);
 			
-			if (tile1.getCandidateCount() >= 3)
+			if (tile1.getCompCandidateCount() >= 3)
 			{
 				int colStart = tile1.getX();
 				int rowStart = tile1.getY();
@@ -53,7 +53,7 @@ public final class Triplets implements SolverTechnique
 				{
 					tile2 = gamestate.getTile(j);
 					
-					if (this.has3TheSame(tile2.getCandidates(), tile1.getCandidates()))
+					if (this.has3TheSame(tile2.getCompCandidates(), tile1.getCompCandidates()))
 					{
 						colStart = tile2.getX();
 						rowStart = tile2.getY();
@@ -64,8 +64,8 @@ public final class Triplets implements SolverTechnique
 						{
 							tile3 = gamestate.getTile(j);
 							
-							if (this.has3TheSame(tile3.getCandidates(), tile1.getCandidates()) 
-									&& this.has3TheSame(tile3.getCandidates(), tile2.getCandidates()))
+							if (this.has3TheSame(tile3.getCompCandidates(), tile1.getCompCandidates()) 
+									&& this.has3TheSame(tile3.getCompCandidates(), tile2.getCompCandidates()))
 							{
 								// Verwijder in de overige cellen van die rij of kolom 
 								// de drie kandidaten die met de drie bewuste cellen overeenkomen.
@@ -79,7 +79,7 @@ public final class Triplets implements SolverTechnique
 				{
 					tile2 = gamestate.getTile(j);
 					
-					if (this.has3TheSame(tile2.getCandidates(), tile1.getCandidates()))
+					if (this.has3TheSame(tile2.getCompCandidates(), tile1.getCompCandidates()))
 					{
 						colStart = tile2.getX();
 						rowStart = tile2.getY();
@@ -90,8 +90,8 @@ public final class Triplets implements SolverTechnique
 						{
 							tile3 = gamestate.getTile(j);
 							
-							if (this.has3TheSame(tile3.getCandidates(), 
-									tile1.getCandidates()) && this.has3TheSame(tile3.getCandidates(), tile2.getCandidates()))
+							if (this.has3TheSame(tile3.getCompCandidates(), 
+									tile1.getCompCandidates()) && this.has3TheSame(tile3.getCompCandidates(), tile2.getCompCandidates()))
 							{
 								
 							}
