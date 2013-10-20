@@ -42,12 +42,12 @@ public class Segmentation implements SolverTechnique
 		try
 		{
 			for (int i = SudokuGameRules.DEFAULT_MAX_INDEX_VALUE; i < SudokuGameRules.DEFAULT_MAX_INDEX_VALUE; i++)
-			{
-				Tile selectedTile = gamestate.getTile(i);
+			{				Tile selectedTile = gamestate.getTile(i);
+			
 
 				// Step 1: search for a tile with candidates:
-
-				if (selectedTile.getCandidateCount() > 0)
+				
+				if (selectedTile.getCompCandidateCount() > 0)
 				{
 					// Oh yes we have one. Let's Progress the given tile and
 					// check if we could remove the candidate of it.
@@ -79,7 +79,7 @@ public class Segmentation implements SolverTechnique
 		int xOfSelectedTile = selectedTile.getX();
 		int yOfSelectedTile = selectedTile.getY();
 
-		boolean[] candidatesOfSelectedTile = selectedTile.getCandidates();
+		boolean[] candidatesOfSelectedTile = selectedTile.getCompCandidates();
 
 		// Step 2: Pick a candidate:
 		for (int j = 0; j < candidatesOfSelectedTile.length; j++)
@@ -118,17 +118,18 @@ public class Segmentation implements SolverTechnique
 					{
 						couldCandidateOfFirstSelectedTileBeRemoved = true;
 					}
-					else if (whichTilesInColumnHaveSameCandidate[k])
-					{
-						couldCandidateOfFirstSelectedTileBeRemoved = true;
-					}
+					else
+						if (whichTilesInColumnHaveSameCandidate[k])
+						{
+							couldCandidateOfFirstSelectedTileBeRemoved = true;
+						}
 				}
 
 				if (couldCandidateOfFirstSelectedTileBeRemoved)
 				{
 					// it seems like it's only on the same row,
 					// so we could remove the candidate at the selected tile.
-					selectedTile.setCandidate(selectedCandidate, false);
+					selectedTile.setCompCandidate(selectedCandidate, false);
 					gamestate.setTile( selectedTile.getX(),  selectedTile.getY(), selectedTile );
 					
 					return true;
@@ -163,7 +164,7 @@ public class Segmentation implements SolverTechnique
 			Tile secondSelectedTile = tiles[k];
 
 			// Check if that tile has the same candidate:
-			if (secondSelectedTile.isCandidate(candidate))
+			if (secondSelectedTile.isCompCandidate(candidate))
 			{
 				// it is.
 				int yOfCandidateMatchedTile = secondSelectedTile.getY();
@@ -182,15 +183,16 @@ public class Segmentation implements SolverTechnique
 									gamestate, candidate, xOfSelectedTile,
 									yOfCandidateMatchedTile, true, false);
 				}
-				else if (!checkTilesAsRow
-						&& xOfCandidateMatchedTile != xOfSelectedTile)
-				{
-					whichTilesHaveSameCandidate[k] = this
-							.checkIfThisCandidateIsntInOtherTilesOfTheBlock(
-									gamestate, candidate,
-									xOfCandidateMatchedTile, yOfSelectedTile,
-									false, true);
-				}
+				else
+					if (!checkTilesAsRow
+							&& xOfCandidateMatchedTile != xOfSelectedTile)
+					{
+						whichTilesHaveSameCandidate[k] = this
+								.checkIfThisCandidateIsntInOtherTilesOfTheBlock(
+										gamestate, candidate,
+										xOfCandidateMatchedTile,
+										yOfSelectedTile, false, true);
+					}
 			}
 		}
 		return whichTilesHaveSameCandidate;
@@ -222,7 +224,7 @@ public class Segmentation implements SolverTechnique
 
 			// Check if there is a Tile in the Block with the given candidate,
 			// of course not the Tile with the given X and Y!
-			if (selectedTile.isCandidate(candidate)
+			if (selectedTile.isCompCandidate(candidate)
 					&& selectedTile.getX() != xIsInThisBlock
 					&& selectedTile.getY() != yIsInThisBlock)
 			{
@@ -231,11 +233,12 @@ public class Segmentation implements SolverTechnique
 				{
 					return true;
 				}
-				else if (ignoreGivenYAxis
-						&& selectedTile.getY() != yIsInThisBlock)
-				{
-					return true;
-				}
+				else
+					if (ignoreGivenYAxis
+							&& selectedTile.getY() != yIsInThisBlock)
+					{
+						return true;
+					}
 			}
 		}
 		return false;

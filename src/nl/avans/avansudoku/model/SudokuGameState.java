@@ -137,10 +137,10 @@ public class SudokuGameState implements GameState
 
 				// Vorige value weer candidate maken
 				if (prevValue > 0)
-					TileX.setCandidate(prevValue, true);
+					TileX.setCompCandidate(prevValue, true);
 
 				// Nieuwe value geen candidate maken
-				TileX.setCandidate(value, false);
+				TileX.setCompCandidate(value, false);
 			}
 
 			// Zichzelf overslaan binnen de Y as
@@ -150,10 +150,10 @@ public class SudokuGameState implements GameState
 
 				// Vorige value weer candidate maken
 				if (prevValue > 0)
-					TileY.setCandidate(prevValue, true);
+					TileY.setCompCandidate(prevValue, true);
 
 				// Nieuwe value geen candidate maken
-				TileY.setCandidate(value, false);
+				TileY.setCompCandidate(value, false);
 			}
 
 			// Zichzelf overslaan binnen het block
@@ -163,10 +163,10 @@ public class SudokuGameState implements GameState
 
 				// Vorige value weer candidate maken
 				if (prevValue > 0)
-					BlockTile.setCandidate(prevValue, true);
+					BlockTile.setCompCandidate(prevValue, true);
 
 				// Nieuwe value geen candidate maken
-				BlockTile.setCandidate(value, false);
+				BlockTile.setCompCandidate(value, false);
 			}
 		}
 	}
@@ -216,7 +216,7 @@ public class SudokuGameState implements GameState
 		// tile niet leeg
 		if (otherTile.getValue() > 0)
 		{
-			tile.setCandidate(otherTile.getValue(), false);
+			tile.setCompCandidate(otherTile.getValue(), false);
 		}
 	}
 

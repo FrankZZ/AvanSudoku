@@ -35,12 +35,12 @@ public class NakedSingle implements SolverTechnique
 			Tile tile = gameState.getTile(pendingTiles.get(i));
 
 			// Single candidate?
-			if (tile.getCandidateCount() == 1)
+			if (tile.getCompCandidateCount() == 1)
 			{
 				// De enige candidate verkrijgen en setten als value
 				for (int j = 0; j < 9; j++)
 				{
-					if (tile.isCandidate(j + 1))
+					if (tile.isCompCandidate(j + 1))
 					{
 						gameState.setTileValue(i, j);
 
@@ -78,7 +78,6 @@ public class NakedSingle implements SolverTechnique
 	public boolean solve2(GameState gameState)
 	{
 		this.gameState = gameState;
-		// TODO Auto-generated method stub
 		// Kies een cel. Kijk eerst of deze cel al een getal bevat.
 		// Zo wel; verwijder alle kandidaten op de waarde van de cel na.
 		// Verwijder ook de waarde van de cel uit de kandidaten van de cellen waar hij invloed op heeft.

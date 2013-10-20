@@ -41,12 +41,12 @@ public class HiddenSingle implements SolverTechnique
 			Tile tile = gameState.getTile(pendingTiles.get(i));
 
 			// Single candidate?
-			if (tile.getCandidateCount() == 1)
+			if (tile.getCompCandidateCount() == 1)
 			{
 				// De enige candidate verkrijgen en setten als value
 				for (int j = 0; j < 9; j++)
 				{
-					if (tile.isCandidate(j))
+					if (tile.isCompCandidate(j))
 					{
 						gameState.setTileValue(i, j);
 						solvedTile = true;

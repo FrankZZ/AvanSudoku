@@ -203,7 +203,7 @@ public class SudokuGameRules extends GameRules
 
 		for( int i = 0; i < DEFAULT_ROW_SIZE; i++ )
 		{
-			rowToDo[i].setCandidate( ofThisValue, false );
+			rowToDo[i].setCompCandidate( ofThisValue, false );
 		}
 
 		currentGameState.setRow( atRowIndex, rowToDo );
@@ -213,7 +213,7 @@ public class SudokuGameRules extends GameRules
 
 		for( int i = 0; i < DEFAULT_COLUMN_SIZE; i++ )
 		{
-			columnToDo[i].setCandidate( ofThisValue, false );
+			columnToDo[i].setCompCandidate( ofThisValue, false );
 		}
 
 		currentGameState.setColumn( atColumnIndex, columnToDo );
@@ -224,7 +224,7 @@ public class SudokuGameRules extends GameRules
 
 		for( int i = 0; i < DEFAULT_BLOCK_SIZE; i++ )
 		{
-			blockToDo[i].setCandidate( ofThisValue, false );
+			blockToDo[i].setCompCandidate( ofThisValue, false );
 		}
 
 		currentGameState.setBlock( atRowIndex, atColumnIndex, blockToDo );

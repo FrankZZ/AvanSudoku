@@ -90,12 +90,12 @@ public class SudokuCreator implements GameCreator
 		Tile tile = gameState.getTile(x, y);
 
 		// Geef een exceptie als er geen candidaten meer zijn voor deze cel/tegel
-		if (tile.getCandidateCount() == 0)
+		if (tile.getCompCandidateCount() == 0)
 			throw new Exception(
 					"SudokuCreator::getRandomOption(): No candidates left for ("
 							+ x + ", " + y + ")");
 
-		boolean[] candidates = tile.getCandidates();
+		boolean[] candidates = tile.getCompCandidates();
 		Random randomGenerator = new Random();
 
 		// Een random slot dat op true staat brute-forcen, het zijn tenslotte

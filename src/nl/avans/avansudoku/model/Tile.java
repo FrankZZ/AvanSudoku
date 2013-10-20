@@ -13,38 +13,35 @@ public class Tile
 {
 
 	private int			index;
-
 	private int			x;
-
 	private int			y;
-
+	private boolean[]	compCandidates;
+	private boolean[]	userCandidates;
+	private int			compCandidateCount;
+	private int			userCandidateCount;
 	private int			value;
-
-	private boolean[]	candidates;
-	
-	private int			candidateCount;
-
+	private int			correctValue;
 	private boolean		locked;
 
-	private int			correctValue;
-
+	// constructor 1
 	public Tile(int x, int y, int value, boolean isLocked, int correctValue)
 	{
 		this.setX(x);
 		this.setY(y);
 		this.setIndex((y * 9) + x);
 		this.setValue(value);
-		this.candidates = new boolean[9];
-		this.candidateCount = 9;
-		for (int i = 0; i < candidates.length; i++)
+		this.compCandidates = new boolean[9];
+		this.compCandidateCount = 9;
+		for (int i = 0; i < compCandidates.length; i++)
 		{
-			this.candidates[i] = true;
+			this.compCandidates[i] = true;
 		}
-		
+
 		this.setLocked(isLocked);
 		this.setCorrectValue(correctValue);
 	}
 
+	// constructor 2 (for placing a tile with an indexNr)
 	public Tile(int index, int value, boolean isLocked, int correctValue)
 	{
 		this(index % 9, index / 9, value, isLocked, correctValue);
@@ -135,37 +132,59 @@ public class Tile
 
 	}
 
-	/**
-	 * @return the candidates (those small numbers in the tile).
-	 */
-	public boolean[] getCandidates()
+	private boolean[] getUserCandidates()
 	{
-		return candidates;
-	}
-	
-	public int getCandidateCount()
-	{	
-		return candidateCount;
+		return userCandidates;
 	}
 
+	private void setUserCandidates(boolean[] userCandidates)
+	{
+		this.userCandidates = userCandidates;
+	}
+
+	private int getUserCandidateCount()
+	{
+		return userCandidateCount;
+	}
+
+	private void setUserCandidateCount(int userCandidateCount)
+	{
+		this.userCandidateCount = userCandidateCount;
+	}
 
 	/**
-	 * @return The given candidate of a specific position.
+	 * @return the candidates (not those small numbers in the tile).
+	 */
+	public boolean[] getCompCandidates()
+	{
+		return compCandidates;
+	}
+
+	/**
+	 * @return If the candidate on this position is a candidate.
 	 * @param pos
 	 *            the specific position.
 	 * @throws Throwable
 	 */
-	public boolean isCandidate(int pos)
+	public boolean isCompCandidate(int pos)
 	{
 		pos--;
-		
-		if (pos >= 0 && pos < candidates.length)
+
+		if (pos >= 0 && pos < compCandidates.length)
 		{
-			return candidates[pos];
+			return compCandidates[pos];
 		}
 
 		return false;
 
+	}
+
+	/**
+	 * @return the number of computer generated candidates
+	 */
+	public int getCompCandidateCount()
+	{
+		return compCandidateCount;
 	}
 
 	/**
@@ -175,18 +194,19 @@ public class Tile
 	 *            The new candidate of a specific position.
 	 * @throws Throwable
 	 */
-	public void setCandidate(int pos, boolean candidate)
+	public void setCompCandidate(int pos, boolean candidate)
 	{
 		pos--;
-		if (pos >= 0 && pos < candidates.length)
+		if (pos >= 0 && pos < compCandidates.length)
 		{
 			// Als pos nog geen candidate was, dan count 1 ophogen. andersom ook
-			if (candidate == true && candidates[pos] != true )
-				candidateCount++;
-			else if (candidate == false && candidates[pos] != false)
-				candidateCount--;
-			
-			this.candidates[pos] = candidate;
+			if (candidate == true && compCandidates[pos] != true)
+				compCandidateCount++;
+			else
+				if (candidate == false && compCandidates[pos] != false)
+					compCandidateCount--;
+
+			this.compCandidates[pos] = candidate;
 		}
 	}
 
@@ -196,6 +216,11 @@ public class Tile
 
 	}
 
+	/**
+	 * 
+	 * @param isLocked
+	 *            Enable or disable changing of the tile by the user.
+	 */
 	public void setLocked(boolean isLocked)
 	{
 		this.locked = isLocked;
