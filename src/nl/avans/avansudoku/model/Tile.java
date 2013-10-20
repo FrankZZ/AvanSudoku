@@ -3,6 +3,8 @@
  */
 package nl.avans.avansudoku.model;
 
+import java.util.Arrays;
+
 /**
  * @author Rick van Son
  * @version 1.2
@@ -23,7 +25,7 @@ public class Tile
 	private int			correctValue;
 	private boolean		locked;
 
-	// constructor 1
+	// constructor 1 (for placing a tile with an horizontal and vertical value)
 	public Tile(int x, int y, int value, boolean isLocked, int correctValue)
 	{
 		this.setX(x);
@@ -31,6 +33,9 @@ public class Tile
 		this.setIndex((y * 9) + x);
 		this.setValue(value);
 		this.compCandidates = new boolean[9];
+		Arrays.fill(compCandidates, Boolean.TRUE);
+		this.userCandidates = new boolean[9];
+		Arrays.fill(userCandidates, Boolean.FALSE);
 		this.compCandidateCount = 9;
 		for (int i = 0; i < compCandidates.length; i++)
 		{
@@ -147,11 +152,6 @@ public class Tile
 		return userCandidateCount;
 	}
 
-	private void setUserCandidateCount(int userCandidateCount)
-	{
-		this.userCandidateCount = userCandidateCount;
-	}
-
 	/**
 	 * @return the candidates (not those small numbers in the tile).
 	 */
@@ -166,17 +166,13 @@ public class Tile
 	 *            the specific position.
 	 * @throws Throwable
 	 */
-	public boolean isCompCandidate(int pos)
+	public boolean isCompCandidate(int index)
 	{
-		pos--;
-
-		if (pos >= 0 && pos < compCandidates.length)
+		if (index >= 0 && index < compCandidates.length)
 		{
-			return compCandidates[pos];
+			return compCandidates[index];
 		}
-
 		return false;
-
 	}
 
 	/**
@@ -194,26 +190,33 @@ public class Tile
 	 *            The new candidate of a specific position.
 	 * @throws Throwable
 	 */
-	public void setCompCandidate(int pos, boolean candidate)
+	public void setCompCandidate(int index, boolean candidateValue)
 	{
-		pos--;
-		if (pos >= 0 && pos < compCandidates.length)
+		if (candidateValue == true && compCandidates[index] != true)
 		{
-			// Als pos nog geen candidate was, dan count 1 ophogen. andersom ook
-			if (candidate == true && compCandidates[pos] != true)
-				compCandidateCount++;
-			else
-				if (candidate == false && compCandidates[pos] != false)
-					compCandidateCount--;
-
-			this.compCandidates[pos] = candidate;
+			//verhoog het aantal kandidaten met een als dit nog geen kandidaat was.
+			compCandidateCount++;
 		}
+		else
+		{
+			if (candidateValue == false && compCandidates[index] != false)
+			{
+				//verlaag het aantal kandidaten met een als dit nog een kandidaat was.
+				compCandidateCount--;
+			}
+		}
+
+		this.compCandidates[index] = candidateValue;
+	}
+	
+	public void setCompCandidates(boolean[] candidates)
+	{
+		compCandidates = candidates;
 	}
 
 	public boolean isLocked()
 	{
 		return this.locked;
-
 	}
 
 	/**
@@ -224,7 +227,6 @@ public class Tile
 	public void setLocked(boolean isLocked)
 	{
 		this.locked = isLocked;
-
 	}
 
 	/**

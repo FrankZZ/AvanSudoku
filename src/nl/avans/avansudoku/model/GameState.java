@@ -1,21 +1,19 @@
 package nl.avans.avansudoku.model;
 
-import java.util.EmptyStackException;
-
-
 public interface GameState
 {
 
-	public abstract SudokuGameState addStartState(Tile[] game);
+	public abstract void addStartState(Tile[] game);
 
-	public abstract SudokuGameState updateCurrentState(Tile tile)
-			throws EmptyStackException;
+	public abstract void updateCurrentState(Tile tile);
 
-	public abstract SudokuGameState addUndoAction(Tile tile);
+	public abstract void addUndoAction(Tile tile);
 
-	public abstract SudokuGameState resetToStartState();
+	public abstract void resetToStartState();
 
-	public abstract Tile retrieveUndoAction() throws Throwable;
+	public abstract Tile retrieveUndoAction();
+	
+	public abstract void undoLastAction();
 
 	public abstract Tile getTile(int index);
 	
@@ -25,19 +23,19 @@ public interface GameState
 
 	public abstract Tile getTile(int x, int y);
 
-	public abstract Tile[] getRow(int atX);
+	public abstract Tile[] getRow(int y);
 
-	public abstract void setRow(int atX, Tile[] modifiedTiles);
+	public abstract void setRow(int y, Tile[] modifiedTiles);
 
-	public abstract Tile[] getColumn(int atY);
+	public abstract Tile[] getColumn(int x);
 
-	public abstract void setColumn(int atY, Tile[] modifiedTiles);
+	public abstract void setColumn(int y, Tile[] modifiedTiles);
 
-	public abstract Tile[] getBlock(int atX, int atY);
+	public abstract Tile[] getBlock(int x, int y);
 
-	public abstract void setBlock(int atX, int atY, Tile[] modifiedTiles);
+	public abstract void setBlock(int x, int y, Tile[] modifiedTiles);
 
-	public abstract Tile askHintAction(); // Debate if this needs solver access
+	public abstract Tile askHintAction(); //TODO Debate if this needs solver access
 
 	public abstract Boolean checkNewState();
 }
