@@ -24,6 +24,9 @@ public interface GameState
 	public abstract void setTileValue(int x, int y, int value);
 
 	public abstract Tile getTile(int x, int y);
+	
+	// Because it isn't only the value of the Tile which we are manipulating with the solvers.
+	public abstract void setTile( int x, int y, Tile tile );
 
 	public abstract Tile[] getRow(int atX);
 

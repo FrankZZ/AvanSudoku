@@ -7,7 +7,7 @@ import nl.avans.avansudoku.model.solvers.SolverTechnique;
 
 /**
  * @author Rick van Son
- * @version 1.0
+ * @version 1.1
  * @since 2013-10-10
  * 
  * 
@@ -129,7 +129,8 @@ public class Segmentation implements SolverTechnique
 					// it seems like it's only on the same row,
 					// so we could remove the candidate at the selected tile.
 					selectedTile.setCandidate(selectedCandidate, false);
-
+					gamestate.setTile( selectedTile.getX(),  selectedTile.getY(), selectedTile );
+					
 					return true;
 				}
 			}
