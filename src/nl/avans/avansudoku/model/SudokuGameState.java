@@ -124,7 +124,7 @@ public class SudokuGameState implements GameState
 
 		int blockX = (x / 3) * 3;
 		int blockY = (y / 3) * 3;
-		int blockIdx = blockX * blockY;
+		int blockIdx = blockY * 9 + blockX;
 
 		for (int i = 0; i < 9; i++)
 		{
@@ -137,10 +137,18 @@ public class SudokuGameState implements GameState
 
 				// Vorige value weer candidate maken
 				if (prevValue > 0)
+				{
 					TileX.setCompCandidate(prevValue, true);
+					String posString = "[" + x + "][" + i + "]";
+					String changedValueString = "candidate: " + prevValue + " is set to: true";
+					Log.w("CandidateChanged in tile: " + posString, changedValueString);
+				}
 
 				// Nieuwe value geen candidate maken
 				TileX.setCompCandidate(value, false);
+				String posString = "[" + x + "][" + i + "]";
+				String changedValueString = "candidate: " + value + " is set to: false";
+				Log.w("CandidateChanged in tile: " + posString, changedValueString);
 			}
 
 			// Zichzelf overslaan binnen de Y as
@@ -150,10 +158,18 @@ public class SudokuGameState implements GameState
 
 				// Vorige value weer candidate maken
 				if (prevValue > 0)
+				{
 					TileY.setCompCandidate(prevValue, true);
+					String posString = "[" + x + "][" + i + "]";
+					String changedValueString = "candidate: " + prevValue + " is set to: true";
+					Log.w("CandidateChanged in tile: " + posString, changedValueString);
+				}
 
 				// Nieuwe value geen candidate maken
 				TileY.setCompCandidate(value, false);
+				String posString = "[" + x + "][" + i + "]";
+				String changedValueString = "candidate: " + value + " is set to: false";
+				Log.w("CandidateChanged in tile: " + posString, changedValueString);
 			}
 
 			// Zichzelf overslaan binnen het block
@@ -163,10 +179,18 @@ public class SudokuGameState implements GameState
 
 				// Vorige value weer candidate maken
 				if (prevValue > 0)
+				{
 					BlockTile.setCompCandidate(prevValue, true);
+					String posString = "[" + x + "][" + i + "]";
+					String changedValueString = "candidate: " + prevValue + " is set to: true";
+					Log.w("CandidateChanged in tile: " + posString, changedValueString);
+				}
 
 				// Nieuwe value geen candidate maken
 				BlockTile.setCompCandidate(value, false);
+				String posString = "[" + x + "][" + i + "]";
+				String changedValueString = "candidate: " + value + " is set to: false";
+				Log.w("CandidateChanged in tile: " + posString, changedValueString);
 			}
 		}
 	}
