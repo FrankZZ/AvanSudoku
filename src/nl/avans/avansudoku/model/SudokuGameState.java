@@ -160,14 +160,14 @@ public class SudokuGameState implements GameState
 				if (prevValue > 0)
 				{
 					TileY.setCompCandidate(prevValue, true);
-					String posString = "[" + x + "][" + i + "]";
+					String posString = "[" + i + "][" + y + "]";
 					String changedValueString = "candidate: " + prevValue + " is set to: true";
 					Log.w("CandidateChanged in tile: " + posString, changedValueString);
 				}
 
 				// Nieuwe value geen candidate maken
 				TileY.setCompCandidate(value, false);
-				String posString = "[" + x + "][" + i + "]";
+				String posString = "[" + i + "][" + y + "]";
 				String changedValueString = "candidate: " + value + " is set to: false";
 				Log.w("CandidateChanged in tile: " + posString, changedValueString);
 			}
@@ -176,19 +176,22 @@ public class SudokuGameState implements GameState
 			if ((blockIdx + i) != ((y * 9) + x))
 			{
 				Tile BlockTile = getTile(blockIdx + i);
+				int pos = blockIdx + i;
+				int xPos = pos % 9;
+				int yPos = pos / 9;
 
 				// Vorige value weer candidate maken
 				if (prevValue > 0)
 				{
 					BlockTile.setCompCandidate(prevValue, true);
-					String posString = "[" + x + "][" + i + "]";
+					String posString = "[" + xPos + "][" + yPos + "]";
 					String changedValueString = "candidate: " + prevValue + " is set to: true";
 					Log.w("CandidateChanged in tile: " + posString, changedValueString);
 				}
 
-				// Nieuwe value geen candidate maken
+				// Nieuwe value geen candidate maxken
 				BlockTile.setCompCandidate(value, false);
-				String posString = "[" + x + "][" + i + "]";
+				String posString = "[" + xPos + "][" + yPos + "]";
 				String changedValueString = "candidate: " + value + " is set to: false";
 				Log.w("CandidateChanged in tile: " + posString, changedValueString);
 			}
