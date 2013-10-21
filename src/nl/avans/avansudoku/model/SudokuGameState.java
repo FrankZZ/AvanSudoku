@@ -1,6 +1,7 @@
 package nl.avans.avansudoku.model;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.EmptyStackException;
 import java.util.Stack;
 
@@ -65,15 +66,18 @@ public class SudokuGameState implements GameState
 	public void setTileValue(int x, int y, int value)
 	{
 		setTileValue((y * 9) + x, value);
-		undoStack.add(getTile((y * 9) + x));
 	}
 
 	public void setTileValue(int index, int value)
 	{
-		if (tiles[index].getValue()==0)
+		//add this mutation to the undo stack
+		undoStack.add(getTile(index));
+		
+		if (tiles[index].getValue() == 0)
 		{
 			//make the computer generate new candidates
-			removeCandidatesInNeighborTiles(index, value);
+			//removeCandidatesInNeighborTiles(index, value);
+			generateCandidatesForField();
 		}
 		else
 		{
@@ -147,9 +151,9 @@ public class SudokuGameState implements GameState
 		{
 			for (int j = 0; j < 3; j++)
 			{
-				if (i != x && j != y)
+				if (i != y || j != x)
 				{
-					getTile(i * xIndexBlock, j * yIndexBlock).setCompCandidate(
+					getTile(i + xIndexBlock, j + yIndexBlock).setCompCandidate(
 							candidateValue, false);
 				}
 			}
@@ -228,27 +232,28 @@ public class SudokuGameState implements GameState
 		Tile[] column = getColumn(x);
 		Tile[] block = getBlock(x,y);
 		boolean[] candidates = new boolean[9];
+		Arrays.fill(candidates, Boolean.TRUE);
 		for (int i = 0; i < 9; i++)
 		{
 			//look for a value in the row on position i
 			if(row[i].getValue()!=0)
 			{
-				candidates[row[i].getValue()-1] = true;
+				candidates[row[i].getValue()] = false;
 			}
 
 			//look for a value in the column on position i
 			if(column[i].getValue()!=0)
 			{
-				candidates[column[i].getValue()-1] = true;
+				candidates[column[i].getValue()] = false;
 			}
 
 			//look for a value in the block on position i
 			if(block[i].getValue()!=0)
 			{
-				candidates[block[i].getValue()-1] = true;
+				candidates[block[i].getValue()] = false;
 			}
 		}
-		tiles[y*9+x].setCompCandidates(candidates);
+		getTile(x,y).setCompCandidates(candidates);
 	}
 
 	@Override
@@ -297,8 +302,8 @@ public class SudokuGameState implements GameState
 	public Tile[] getBlock(int x, int y)
 	{
 		Tile[] result = new Tile[9];
-		int blockX = x%3;
-		int blockY = y%3;
+		int blockX = (x%3)*3;
+		int blockY = (y%3)*3;
 		int resultIterator = 0;
 
 		for(int i = 0; i < 3; i++)
@@ -317,8 +322,8 @@ public class SudokuGameState implements GameState
 	@Override
 	public void setBlock(int x, int y, Tile[] modifiedTiles)
 	{
-		int blockX = x%3;
-		int blockY = y%3;
+		int blockX = (x%3)*3;
+		int blockY = (y%3)*3;
 		int resultIterator = 0;
 
 		for(int i = 0; i < 3; i++)

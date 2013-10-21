@@ -89,14 +89,14 @@ public class SudokuCreator implements GameCreator
 		//loop variables + loop
 		boolean validCandidateFound = false;
 		int safetyLoopBreaker = 0;
-		while(validCandidateFound == false && safetyLoopBreaker < 40)
+		while(validCandidateFound == false && safetyLoopBreaker < 100)
 		{
 			//to make sure this never becomes an endless loop
 			safetyLoopBreaker++;
 			
-			int randomIndex = randomGenerator.nextInt(candidates.length);
+			int randomIndex = randomGenerator.nextInt(9);
 
-			// Als de random index het een kandidaat is dan het resultaat setten en de loop afbreken
+			// Break the loop and set the index if the random index is a valid candidate
 			if (candidates[randomIndex] == true)
 			{
 				result = randomIndex;

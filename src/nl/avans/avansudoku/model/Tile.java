@@ -134,7 +134,6 @@ public class Tile
 		{
 			this.value = value;
 		}
-
 	}
 
 	private boolean[] getUserCandidates()
