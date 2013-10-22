@@ -4,6 +4,14 @@ import nl.avans.avansudoku.control.SudokuGameRules;
 import nl.avans.avansudoku.model.GameState;
 import nl.avans.avansudoku.model.Tile;
 
+/**
+ * @author Rick van Son
+ * @version 1.0
+ * @since 2013-10-10
+ * 
+ * 
+ *        This class tries to solve the sudoku puzzle using the XWing Algorithm.
+ */
 public class XWing implements SolverTechnique
 {
 
@@ -69,7 +77,7 @@ public class XWing implements SolverTechnique
 					this.tileColumnSelector = 0;
 					for (tileIndex = 0; tileIndex < SudokuGameRules.DEFAULT_ROW_SIZE; tileIndex++)
 					{
-						if (tempRow[tileIndex].getCandidate(candidateIndex))
+						if (tempRow[tileIndex].isCompCandidate(candidateIndex))
 						{
 							this.tileColumnSelector++;
 
@@ -160,7 +168,7 @@ public class XWing implements SolverTechnique
 									}
 									return true;
 								}
-								
+
 								this.resetAlmostEverything();
 
 							}
@@ -189,7 +197,7 @@ public class XWing implements SolverTechnique
 			Tile temp = column[i];
 			if (temp.getX() != tileTop.getX()
 					&& temp.getX() != tileBottom.getX()
-					&& temp.getCandidate(selectedCandidate))
+					&& temp.isCompCandidate(selectedCandidate))
 			{
 				if (columnMode)
 				{
@@ -214,7 +222,7 @@ public class XWing implements SolverTechnique
 			Tile temp = row[i];
 			if (temp.getY() != tileLeft.getY()
 					&& temp.getY() != tileRight.getY()
-					&& temp.getCandidate(selectedCandidate))
+					&& temp.isCompCandidate(selectedCandidate))
 			{
 				this.columnMode = true;
 				this.rowMode = false;
@@ -234,7 +242,7 @@ public class XWing implements SolverTechnique
 			{
 				// Get the column and the tile.
 				Tile tempTile = tempColumn[i];
-				tempTile.setCandidate(this.selectedCandidate, false);
+				tempTile.setCompCandidate(this.selectedCandidate, false);
 				tempColumn[i] = tempTile;
 			}
 		}
@@ -253,7 +261,7 @@ public class XWing implements SolverTechnique
 			{
 				// Get the column and the tile.
 				Tile tempTile = tempRow[i];
-				tempTile.setCandidate(this.selectedCandidate, false);
+				tempTile.setCompCandidate(this.selectedCandidate, false);
 				tempRow[i] = tempTile;
 			}
 		}

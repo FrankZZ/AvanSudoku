@@ -70,35 +70,12 @@ public class SudokuGameState implements GameState
 
 	public void setTileValue(int index, int value)
 	{
-		//add this mutation to the undo stack
-		undoStack.add(getTile(index));
+		// Nieuwe value aan neighbor candidates toevoegen
+		addCandidateToNeighborTiles(index, value);
 		
-		if (tiles[index].getValue() == 0)
-		{
-			//make the computer generate new candidates
-			//removeCandidatesInNeighborTiles(index, value);
-			generateCandidatesForField();
-		}
-		else
-		{
-			//make the computer generate new candidates
-			generateCandidatesForField();
-		}
-		//change the value of the tile
-		tiles[index].setValue(value);
+		// De waarde setten
+		getTile(index).setValue(value);
 	}
-
-	//	Disabled for now. SetTile does not update the candidates in other tiles 
-	//	and it's expensive to check what has updated on this tile maybe something for later.
-	//	public void setTile(int x, int y, Tile newTile)
-	//	{
-	//		setTile((y * 9) + x, newTile);
-	//	}
-	//	
-	//	public void setTile(int index, Tile newTile)
-	//	{
-	//		tiles[index] = newTile;
-	//	}
 
 	public Tile getTile(int x, int y)
 	{
@@ -110,162 +87,153 @@ public class SudokuGameState implements GameState
 		return tiles[idx];
 	}
 
-	private void removeCandidatesInNeighborTiles(int index, int candidateValue)
-	{
-		int x = index % 9;
-		int y = index / 9;
-
-		removeCandidatesInRow(x, y, candidateValue);
-		removeCandidatesInColumn(x, y, candidateValue);
-		removeCandidatesInBlock(x, y, candidateValue);
-	}
-
-	private void removeCandidatesInRow(int x, int y, int candidateValue)
-	{
-		for (int i = 0; i < 9; i++)
-		{
-			if (i != x)
-			{
-				getTile(i, y).setCompCandidate(candidateValue, false);
-			}
-		}
-	}
-
-	private void removeCandidatesInColumn(int x, int y, int candidateValue)
-	{
-		for (int i = 0; i < 9; i++)
-		{
-			if (i != y)
-			{
-				getTile(x, i).setCompCandidate(candidateValue, false);
-			}
-		}
-	}
-
-	private void removeCandidatesInBlock(int x, int y, int candidateValue)
-	{
-		int xIndexBlock = x / 3;
-		int yIndexBlock = y / 3;
-
-		for (int i = 0; i < 3; i++)
-		{
-			for (int j = 0; j < 3; j++)
-			{
-				if (i != y || j != x)
-				{
-					getTile(i + xIndexBlock, j + yIndexBlock).setCompCandidate(
-							candidateValue, false);
-				}
-			}
-		}
-	}
-
-	private void addCandidatesInNeighborTiles(int index, int candidateValue)
-	{
-		int x = index % 9;
-		int y = index / 9;
-
-		addCandidatesInNeighborTiles(x, y, candidateValue);
-	}
-
-	private void addCandidatesInNeighborTiles(int x, int y, int candidateValue)
-	{
-		addCandidatesInRow(x, y, candidateValue);
-		addCandidatesInColumn(x, y, candidateValue);
-		addCandidatesInBlock(x, y, candidateValue);
-	}
-
-	private void addCandidatesInRow(int x, int y, int candidateValue)
-	{
-		for (int i = 0; i < 9; i++)
-		{
-			if (i != x)
-			{
-				getTile(i, y).setCompCandidate(candidateValue, true);
-			}
-		}
-	}
-
-	private void addCandidatesInColumn(int x, int y, int candidateValue)
-	{
-		for (int i = 0; i < 9; i++)
-		{
-			if (i != y)
-			{
-				getTile(x, i).setCompCandidate(candidateValue, true);
-			}
-		}
-	}
-
-	private void addCandidatesInBlock(int x, int y, int candidateValue)
-	{
-		int xIndexBlock = x / 3;
-		int yIndexBlock = y / 3;
-
-		for (int i = 0; i < 3; i++)
-		{
-			for (int j = 0; j < 3; j++)
-			{
-				if (i != x && j != y)
-				{
-					getTile(i * xIndexBlock, j * yIndexBlock).setCompCandidate(
-							candidateValue, true);
-				}
-			}
-		}
-	}
-
-	public void generateCandidatesForField()
+	/*
+	 * @author Frank Wammes
+	 * 
+	 * @desc Alle tiles doorlopen en overal de candidates instellen.
+	 */
+	public void processCandidates()
 	{
 		for (int x = 0; x < 9; x++)
 		{
 			for (int y = 0; y < 9; y++)
 			{
-				generateCandidatesForTile(x,y);
+				processNeighborTileCandidates(x, y);
 			}
 		}
 	}
 
-	public void generateCandidatesForTile(int x, int y)
+	/*
+	 * Add a candidate to all neighbor tiles in the block, x and y axis. Removes
+	 * the previous value of the origin tile from other candidates too
+	 */
+	private void addCandidateToNeighborTiles(int x, int y, int value)
 	{
-		Tile[] row = getRow(y);
-		Tile[] column = getColumn(x);
-		Tile[] block = getBlock(x,y);
-		boolean[] candidates = new boolean[9];
-		Arrays.fill(candidates, Boolean.TRUE);
+		int prevValue = getTile(x, y).getValue();
+
+		int blockX = (x / 3) * 3;
+		int blockY = (y / 3) * 3;
+		int blockIdx = blockY * 9 + blockX;
+
 		for (int i = 0; i < 9; i++)
 		{
-			//look for a value in the row on position i
-			if(row[i].getValue()!=0)
+			// We itereren over de X en Y as en de block in 1 loop
+
+			// Zichzelf overslaan binnen de X as
+			if (y != i)
 			{
-				candidates[row[i].getValue()] = false;
+				Tile TileX = getTile(x, i);
+
+				// Vorige value weer candidate maken
+				if (prevValue > 0)
+				{
+					TileX.setCompCandidate(prevValue, true);
+					String posString = "[" + x + "][" + i + "]";
+					String changedValueString = "candidate: " + prevValue + " is set to: true";
+					Log.w("CandidateChanged in tile: " + posString, changedValueString);
+				}
+
+				// Nieuwe value geen candidate maken
+				TileX.setCompCandidate(value, false);
+				String posString = "[" + x + "][" + i + "]";
+				String changedValueString = "candidate: " + value + " is set to: false";
+				Log.w("CandidateChanged in tile: " + posString, changedValueString);
 			}
 
-			//look for a value in the column on position i
-			if(column[i].getValue()!=0)
+			// Zichzelf overslaan binnen de Y as
+			if (x != i)
 			{
-				candidates[column[i].getValue()] = false;
+				Tile TileY = getTile(i, y);
+
+				// Vorige value weer candidate maken
+				if (prevValue > 0)
+				{
+					TileY.setCompCandidate(prevValue, true);
+					String posString = "[" + i + "][" + y + "]";
+					String changedValueString = "candidate: " + prevValue + " is set to: true";
+					Log.w("CandidateChanged in tile: " + posString, changedValueString);
+				}
+
+				// Nieuwe value geen candidate maken
+				TileY.setCompCandidate(value, false);
+				String posString = "[" + i + "][" + y + "]";
+				String changedValueString = "candidate: " + value + " is set to: false";
+				Log.w("CandidateChanged in tile: " + posString, changedValueString);
 			}
 
-			//look for a value in the block on position i
-			if(block[i].getValue()!=0)
+			// Zichzelf overslaan binnen het block
+			if ((blockIdx + i) != ((y * 9) + x))
 			{
-				candidates[block[i].getValue()] = false;
+				Tile BlockTile = getTile(blockIdx + i);
+				int pos = blockIdx + i;
+				int xPos = pos % 9;
+				int yPos = pos / 9;
+
+				// Vorige value weer candidate maken
+				if (prevValue > 0)
+				{
+					BlockTile.setCompCandidate(prevValue, true);
+					String posString = "[" + xPos + "][" + yPos + "]";
+					String changedValueString = "candidate: " + prevValue + " is set to: true";
+					Log.w("CandidateChanged in tile: " + posString, changedValueString);
+				}
+
+				// Nieuwe value geen candidate maxken
+				BlockTile.setCompCandidate(value, false);
+				String posString = "[" + xPos + "][" + yPos + "]";
+				String changedValueString = "candidate: " + value + " is set to: false";
+				Log.w("CandidateChanged in tile: " + posString, changedValueString);
 			}
 		}
-		getTile(x,y).setCompCandidates(candidates);
 	}
 
-	@Override
-	public Tile[] getRow(int y)
+	private void addCandidateToNeighborTiles(int index, int candidate)
 	{
-		Tile[] result = new Tile[9];
-		int arrIndex = y*9;
-		for(int i = 0; i < 9; i++)
+		addCandidateToNeighborTiles(index % 9, index / 9, candidate);
+	}
+
+	private void processNeighborTileCandidates(int x, int y)
+	{
+		Tile currentTile = getTile(x, y);
+
+		int blockX = (x / 3) * 3;
+		int blockY = (y / 3) * 3;
+		int blockIdx = (blockY * 9) + blockX;
+
+		for (int i = 0; i < 9; i++)
 		{
-			result[i] = tiles[arrIndex + i];
+			// We itereren over de X en Y as en de block in 1 loop
+
+			// Zichzelf overslaan binnen de X as
+			if (y != i)
+			{
+				Tile tileY = getTile(x, i);
+				processTileCandidate(tileY, currentTile);
+			}
+
+			// Zichzelf overslaan binnen de Y as
+			if (x != i)
+			{
+				Tile tileX = getTile(i, y);
+				processTileCandidate(tileX, currentTile);
+			}
+
+			// Zichzelf overslaan binnen het block
+			if ((blockIdx + i) != ((y * 9) + x))
+			{
+				Tile tileBlock = getTile(blockIdx + i);
+				processTileCandidate(tileBlock, currentTile);
+			}
 		}
-		return result;
+	}
+
+	private void processTileCandidate(Tile tile, Tile otherTile)
+	{
+		// tile niet leeg
+		if (otherTile.getValue() > 0)
+		{
+			tile.setCompCandidate(otherTile.getValue(), false);
+		}
 	}
 
 	@Override

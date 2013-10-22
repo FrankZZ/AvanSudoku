@@ -7,7 +7,7 @@ import nl.avans.avansudoku.model.solvers.SolverTechnique;
 
 /**
  * @author Rick van Son
- * @version 1.0
+ * @version 1.1
  * @since 2013-10-10
  * 
  * 
@@ -92,17 +92,19 @@ public class Segmentation implements SolverTechnique
 				// Pick the other tiles of the row of the selected tile:
 				Tile[] rowOfSelectedTile = gamestate.getRow(xOfSelectedTile);
 
-				boolean[] whichTilesInRowHaveSameCandidate = checkTilesOnHavingSameCandidate(
-						gamestate, rowOfSelectedTile, true, selectedCandidate,
-						xOfSelectedTile, yOfSelectedTile);
+				boolean[] whichTilesInRowHaveSameCandidate = this
+						.checkTilesOnHavingSameCandidate(gamestate,
+								rowOfSelectedTile, true, selectedCandidate,
+								xOfSelectedTile, yOfSelectedTile);
 
 				// Pick the other tiles of the column of the selected tile:
 				Tile[] columnOfSelectedTile = gamestate
 						.getColumn(yOfSelectedTile);
 
-				boolean[] whichTilesInColumnHaveSameCandidate = checkTilesOnHavingSameCandidate(
-						gamestate, columnOfSelectedTile, false,
-						selectedCandidate, xOfSelectedTile, yOfSelectedTile);
+				boolean[] whichTilesInColumnHaveSameCandidate = this
+						.checkTilesOnHavingSameCandidate(gamestate,
+								columnOfSelectedTile, false, selectedCandidate,
+								xOfSelectedTile, yOfSelectedTile);
 
 				// Now, check the results of the previous two checks if we could
 				// remove the selected candidate of the selected tile.
@@ -128,7 +130,8 @@ public class Segmentation implements SolverTechnique
 					// it seems like it's only on the same row,
 					// so we could remove the candidate at the selected tile.
 					selectedTile.setCompCandidate(selectedCandidate, false);
-
+					gamestate.setTile( selectedTile.getX(),  selectedTile.getY(), selectedTile );
+					
 					return true;
 				}
 			}
