@@ -11,8 +11,8 @@ import nl.avans.avansudoku.model.Tile;
 
 /**
  * @author Rick van Son
- * @version 1.1
- * @since 2013-10-20
+ * @version 1.2
+ * @since 2013-10-22
  * 
  * 
  *        This class tries to solve the sudoku puzzle using the Swordfish Algorithm.
@@ -144,8 +144,7 @@ public class SwordFish implements SolverTechnique
 										{
 											// remove the candidate and backport it back to the gamestate.
 											thingsWentWell = true;
-											selectedTile.setCompCandidate( candidateIndex, false );
-											gamestate.setTile( x, swordfishColumnIndex, selectedTile );
+											gamestate.getTile( x, swordfishColumnIndex ).setCompCandidate( candidateIndex, false );
 										}
 									}
 								}
@@ -248,8 +247,7 @@ public class SwordFish implements SolverTechnique
 										{
 											// remove the candidate and backport it back to the gamestate.
 											thingsWentWell = true;
-											selectedTile.setCompCandidate( candidateIndex, false );
-											gamestate.setTile( swordfishRowIndex, y, selectedTile );
+											gamestate.getTile( swordfishRowIndex, y ).setCompCandidate( candidateIndex, false );
 										}
 									}
 								}

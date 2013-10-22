@@ -19,12 +19,12 @@ public interface GameState
 	
 	public abstract void setTileValue(int index, int value);
 	
-	public abstract void setTileValue(int x, int y, int value);
-
+	public abstract void setTileValue(int x, int y, int value); 
+	 
 	public abstract Tile getTile(int x, int y);
 	
 	// Don't use this. It will mess up the candidate logic. Use setValue instead.
-	//public abstract void setTile( int x, int y, Tile tile );
+//	public abstract void setTile( int x, int y, Tile tile );
 
 	public abstract Tile[] getRow(int y);
 

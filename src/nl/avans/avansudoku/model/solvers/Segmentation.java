@@ -7,8 +7,8 @@ import nl.avans.avansudoku.model.solvers.SolverTechnique;
 
 /**
  * @author Rick van Son
- * @version 1.1
- * @since 2013-10-10
+ * @version 1.2
+ * @since 2013-10-22
  * 
  * 
  *        This class tries to solve the sudoku puzzle using the Segmentation
@@ -129,8 +129,7 @@ public class Segmentation implements SolverTechnique
 				{
 					// it seems like it's only on the same row,
 					// so we could remove the candidate at the selected tile.
-					selectedTile.setCompCandidate(selectedCandidate, false);
-					gamestate.setTile( selectedTile.getX(),  selectedTile.getY(), selectedTile );
+					gamestate.getTile( selectedTile.getX(),  selectedTile.getY() ).setCompCandidate(selectedCandidate, false);
 					
 					return true;
 				}

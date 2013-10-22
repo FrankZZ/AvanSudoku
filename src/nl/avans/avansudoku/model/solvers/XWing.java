@@ -6,8 +6,8 @@ import nl.avans.avansudoku.model.Tile;
 
 /**
  * @author Rick van Son
- * @version 1.0
- * @since 2013-10-10
+ * @version 1.1
+ * @since 2013-10-22
  * 
  * 
  *        This class tries to solve the sudoku puzzle using the XWing Algorithm.
