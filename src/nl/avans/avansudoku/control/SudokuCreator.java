@@ -30,87 +30,84 @@ public class SudokuCreator implements GameCreator
 		//digHoles();
 	}
 
+	public SudokuGameState getGameState()
+	{
+		return gameState;
+	}
+
 	public void generateTiles()
 	{
 		gameState = new SudokuGameState();
 
-		int safetyLoopBreaker = 0;
-
-		for (int i = 0; i < (9 * 9) && safetyLoopBreaker < 200; i++)
+		int i = 0;
+		int lastRevert = -1;
+		while (i < (9 * 9))
 		{
-			//to be sure this never is an endless loop
-			safetyLoopBreaker++;
 
 			int x = i % 9;
 			int y = i / 9;
 
-			boolean hasCandidates = checkTileForCandidates(x, y);
-			if(hasCandidates == true)
+			int candidate;
+			try
 			{
-				//de huidige tegel heeft candidaten
-				int randomCandidate = getRandomCandidate(x,y);
-				gameState.setTileValue(x, y, randomCandidate);
+				candidate = getRandomCandidate(x, y);
+				Log.d("vv", Integer.toString(candidate)); 
+				gameState.setTileValue(x, y, candidate);
 			}
-			else
+			catch (Exception e)
 			{
-				//de huidige tegel heeft geen candidaten
-				for(int j = 0; j<3; j++)
+				if (lastRevert == i)
 				{
-					gameState.undoLastAction();
-					i--;
+					Log.e("Sudoku", "I'm stuck!");
+					
+					gameState = new SudokuGameState();
+					
+					i = 0;
+					
+					continue;
 				}
+				
+				lastRevert = i;
+				
+				Log.e("SUDOKU", "REVERTING AT " + i);
+				// Geen candidates: failed dus 9 stapjes terug
+				for (int j = 0; j < 9; j++)
+				{
+					i--;
+					int xx = i % 9;
+					int yy = i / 9;
+					gameState.setTileValue(xx, yy, 0);
+				}
+				continue;
 			}
-		}
-		
-		if(safetyLoopBreaker == 0)
-		{
-			Log.w("AvanSudoku","safety loop break activated for the for loop in SudokuCreator -> generateTiles");
+			i++;
 		}
 	}
 
-	private boolean checkTileForCandidates(int x, int y)
+	public int getRandomCandidate(int x, int y) throws Exception
 	{
-		boolean result = false;
 		Tile tile = gameState.getTile(x, y);
-		if (tile.getCompCandidateCount() == 0)
-			result = false;
-		else
-			result = true;
-		return result;
-	}
 
-	public int getRandomCandidate(int x, int y)
-	{
-		//method variables
-		int result = 0;
-		boolean[] candidates = gameState.getTile(x, y).getCompCandidates();
+		// Geef een exceptie als er geen candidaten meer zijn voor deze cel/tegel
+		if (tile.getCompCandidateCount() == 0)
+			throw new Exception(
+					"SudokuCreator::getRandomOption(): No candidates left for ("
+							+ x + ", " + y + ")");
+
+		boolean[] candidates = tile.getCompCandidates();
 		Random randomGenerator = new Random();
 
-		//loop variables + loop
-		boolean validCandidateFound = false;
-		int safetyLoopBreaker = 0;
-		while(validCandidateFound == false && safetyLoopBreaker < 100)
+		// Een random slot dat op true staat brute-forcen, het zijn tenslotte
+		// maar 9 slots... ;-)
+		while (true)
 		{
-			//to make sure this never becomes an endless loop
-			safetyLoopBreaker++;
+			int randomInt = randomGenerator.nextInt(candidates.length);
 			
-			int randomIndex = randomGenerator.nextInt(9);
-
-			// Break the loop and set the index if the random index is a valid candidate
-			if (candidates[randomIndex] == true)
-			{
-				result = randomIndex;
-				validCandidateFound = true;
+			// Is het een candidate?
+			if (candidates[randomInt] == true)
+				return randomInt + 1; // while afgebroken
 			}
 		}
-
-		if (safetyLoopBreaker >= 40)
-		{
-			Log.w("AvanSudoku","safety loop break activated for while loop in SudokuCreator -> getRandomCandidate");
-		}
-
-		return result;
-	}
 
 	public void digHoles()
 	{
@@ -146,11 +143,6 @@ public class SudokuCreator implements GameCreator
 				}
 			}
 		}
-	}
-
-	public SudokuGameState getGameState()
-	{
-		return gameState;
 	}
 
 }
