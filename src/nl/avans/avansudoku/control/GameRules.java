@@ -11,7 +11,7 @@ package nl.avans.avansudoku.control;
  */
 public abstract class GameRules
 {
-	public abstract boolean checkInput() throws Throwable;
+	//public abstract boolean checkInput() throws Throwable;
 
 	protected abstract boolean isValueAlreadyInThisRow( int atRowIndex,
 			int onValue, int butNotColumnIndex );

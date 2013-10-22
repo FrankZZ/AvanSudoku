@@ -166,14 +166,14 @@ public class GameActivity extends Activity
 
 	public void Undo(View view)
 	{
-		Tile undo = sudokugamestate.retrieveUndoAction();
+		/*Tile undo = sudokugamestate.retrieveUndoAction();
 		if (undo != null)
 		{
 			int vak = undo.getIndex();
 			double waarde = undo.getValue();
 			sudokuveld[vak] = waarde;
 			redrawSudokuOne(vak);
-		}
+		}*/
 	}
 
 	public void Hint(View view)

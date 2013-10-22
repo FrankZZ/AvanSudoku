@@ -41,6 +41,8 @@ public class SudokuCreator implements GameCreator
 
 		int i = 0;
 		int lastRevert = -1;
+		int timesReverted = 0;
+		
 		while (i < (9 * 9))
 		{
 
@@ -51,26 +53,30 @@ public class SudokuCreator implements GameCreator
 			try
 			{
 				candidate = getRandomCandidate(x, y);
-				Log.d("vv", Integer.toString(candidate)); 
+
+				
+				Log.d("vv", "[" + x + "][" + y + "] " + Integer.toString(candidate));
 				gameState.setTileValue(x, y, candidate);
 			}
 			catch (Exception e)
 			{
-				if (lastRevert == i)
+				if (lastRevert == i && timesReverted > 2)
 				{
 					Log.e("Sudoku", "I'm stuck!");
 					
 					gameState = new SudokuGameState();
 					
 					i = 0;
+					lastRevert = -1;
 					
 					continue;
 				}
 				
 				lastRevert = i;
+				timesReverted++;
 				
 				Log.e("SUDOKU", "REVERTING AT " + i);
-				// Geen candidates: failed dus 9 stapjes terug
+				// Geen candidates: failed dus 3 stapjes terug
 				for (int j = 0; j < 9; j++)
 				{
 					i--;
@@ -90,22 +96,25 @@ public class SudokuCreator implements GameCreator
 
 		// Geef een exceptie als er geen candidaten meer zijn voor deze cel/tegel
 		if (tile.getCompCandidateCount() == 0)
+		{
+			Log.e("CREATOR", "SudokuCreator::getRandomOption(): No candidates left for ("
+							+ x + ", " + y + ")");
+			
 			throw new Exception(
 					"SudokuCreator::getRandomOption(): No candidates left for ("
 							+ x + ", " + y + ")");
-
-		boolean[] candidates = tile.getCompCandidates();
+		}
 		Random randomGenerator = new Random();
 
 		// Een random slot dat op true staat brute-forcen, het zijn tenslotte
 		// maar 9 slots... ;-)
 		while (true)
 		{
-			int randomInt = randomGenerator.nextInt(candidates.length);
-			
+			int randomInt = randomGenerator.nextInt(9) + 1; // van 1 t/m 9
+
 			// Is het een candidate?
-			if (candidates[randomInt] == true)
-				return randomInt + 1; // while afgebroken
+			if (tile.isCompCandidate(randomInt) == true)
+				return randomInt; // while afgebroken
 			}
 		}
 

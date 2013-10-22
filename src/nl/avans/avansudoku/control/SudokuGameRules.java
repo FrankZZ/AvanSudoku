@@ -45,14 +45,14 @@ public class SudokuGameRules extends GameRules
 	 * @return true if input is valid, false if not.
 	 * @throws Throwable
 	 */
-	public boolean checkInput() throws Throwable
+	/*public boolean checkInput() throws Throwable
 	{
 		boolean itsOk = false;
 
 		SudokuGameState currentGameState = ( SudokuGameState ) GameManager
 				.getInstance().getGameState();
 
-		Tile previousUndoAction = currentGameState.retrieveUndoAction();
+		Tile previousUndoAction = currentGameState.peekUndoAction();
 
 		int tileX = previousUndoAction.getX();
 		int tileY = previousUndoAction.getY();
@@ -95,7 +95,7 @@ public class SudokuGameRules extends GameRules
 		}
 
 		return itsOk;
-	}
+	}*/
 
 	/**
 	 * 

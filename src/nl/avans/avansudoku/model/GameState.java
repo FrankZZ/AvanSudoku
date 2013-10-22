@@ -11,7 +11,7 @@ public interface GameState
 
 	public abstract void resetToStartState();
 
-	public abstract Tile retrieveUndoAction();
+	//public abstract Tile retrieveUndoAction();
 	
 	public abstract void undoLastAction();
 

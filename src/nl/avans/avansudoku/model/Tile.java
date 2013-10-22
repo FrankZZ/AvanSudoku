@@ -165,11 +165,12 @@ public class Tile
 	 *            the specific position.
 	 * @throws Throwable
 	 */
-	public boolean isCompCandidate(int index)
+	public boolean isCompCandidate(int value)
 	{
-		if (index >= 0 && index < compCandidates.length)
+		value--;
+		if (value >= 0 && value < compCandidates.length)
 		{
-			return compCandidates[index];
+			return compCandidates[value];
 		}
 		return false;
 	}
@@ -191,21 +192,25 @@ public class Tile
 	 */
 	public void setCompCandidate(int index, boolean candidateValue)
 	{
-		if (candidateValue == true && compCandidates[index] != true)
+		index--;
+		if (index >= 0 && index < compCandidates.length)
 		{
-			//verhoog het aantal kandidaten met een als dit nog geen kandidaat was.
-			compCandidateCount++;
-		}
-		else
-		{
-			if (candidateValue == false && compCandidates[index] != false)
+			if (candidateValue == true && compCandidates[index] != true)
 			{
-				//verlaag het aantal kandidaten met een als dit nog een kandidaat was.
-				compCandidateCount--;
+				//verhoog het aantal kandidaten met een als dit nog geen kandidaat was.
+				compCandidateCount++;
 			}
+			else
+			{
+				if (candidateValue == false && compCandidates[index] != false)
+				{
+					//verlaag het aantal kandidaten met een als dit nog een kandidaat was.
+					compCandidateCount--;
+				}
+			}
+	
+			this.compCandidates[index] = candidateValue;
 		}
-
-		this.compCandidates[index] = candidateValue;
 	}
 	
 	public void setCompCandidates(boolean[] candidates)
