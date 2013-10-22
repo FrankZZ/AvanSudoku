@@ -23,8 +23,8 @@ public interface GameState
 
 	public abstract Tile getTile(int x, int y);
 	
-	// Because it isn't only the value of the Tile which we are manipulating with the solvers.
-	public abstract void setTile( int x, int y, Tile tile );
+	// Don't use this. It will mess up the candidate logic. Use setValue instead.
+	//public abstract void setTile( int x, int y, Tile tile );
 
 	public abstract Tile[] getRow(int y);
 

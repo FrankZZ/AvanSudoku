@@ -5,6 +5,8 @@ import java.util.Arrays;
 import java.util.EmptyStackException;
 import java.util.Stack;
 
+import android.util.Log;
+
 public class SudokuGameState implements GameState
 {
 
@@ -58,9 +60,6 @@ public class SudokuGameState implements GameState
 		Tile lastActionTile = undoStack.pop();
 		int lastActionIndex = lastActionTile.getIndex();
 		tiles[lastActionIndex].setValue(lastActionTile.getValue());
-		
-		//make the computer generate new candidates
-		generateCandidatesForField();
 	}
 
 	public void setTileValue(int x, int y, int value)
@@ -234,6 +233,18 @@ public class SudokuGameState implements GameState
 		{
 			tile.setCompCandidate(otherTile.getValue(), false);
 		}
+	}
+	
+	@Override
+	public Tile[] getRow(int y)
+	{
+		Tile[] result = new Tile[9];
+		int arrIndex = y*9;
+		for(int i = 0; i < 9; i++)
+		{
+			result[i] = tiles[arrIndex + i];
+		}
+		return result;
 	}
 
 	@Override
