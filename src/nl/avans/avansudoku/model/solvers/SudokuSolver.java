@@ -4,7 +4,7 @@ import nl.avans.avansudoku.model.GameState;
 
 public class SudokuSolver implements GameSolver
 {
-
+	private static final SudokuSolver SudokuSolver = new SudokuSolver();
 	public static final int	VERY_EASY	= 1;
 	public static final int	EASY		= 2;
 	public static final int	MEDIUM		= 3;
@@ -16,6 +16,11 @@ public class SudokuSolver implements GameSolver
 	public SudokuSolver()
 	{
 		difficultyLevel = 0;
+	}
+
+	public static SudokuSolver getInstance()
+	{
+		return SudokuSolver;
 	}
 
 	@Override
@@ -31,32 +36,77 @@ public class SudokuSolver implements GameSolver
 
 		if (difficultyLevel == VERY_EASY)
 		{
-			NakedSingle.getInstance().solve(gameState);
-			HiddenSingle.getInstance().solve(gameState);
+			for (int i = 0; i < 40; i++)
+			{
+				canBeSolved = NakedSingle.getInstance().solve(gameState);
+				if(canBeSolved == true)
+					break;
+//				canBeSolved = HiddenSingle.getInstance().solve(gameState);
+//				if(canBeSolved == true)
+//					break;
+			}
+
+			return canBeSolved;
 		}
 		else
 			if (difficultyLevel == EASY)
 			{
-				NakedSingle.getInstance().solve(gameState);
-				HiddenSingle.getInstance().solve(gameState);
+				for (int i = 0; i < 40; i++)
+				{
+					canBeSolved = NakedSingle.getInstance().solve(gameState);
+					if(canBeSolved == true)
+						break;
+					canBeSolved = HiddenSingle.getInstance().solve(gameState);
+					if(canBeSolved == true)
+						break;
+				}
+
+				return canBeSolved;
 			}
 			else
 				if (difficultyLevel == MEDIUM)
 				{
-					NakedSingle.getInstance().solve(gameState);
-					HiddenSingle.getInstance().solve(gameState);
+					for (int i = 0; i < 40; i++)
+					{
+						canBeSolved = NakedSingle.getInstance().solve(gameState);
+						if(canBeSolved == true)
+							break;
+						canBeSolved = HiddenSingle.getInstance().solve(gameState);
+						if(canBeSolved == true)
+							break;
+					}
+
+					return canBeSolved;
 				}
 				else
 					if (difficultyLevel == HARD)
 					{
-						NakedSingle.getInstance().solve(gameState);
-						HiddenSingle.getInstance().solve(gameState);
+						for (int i = 0; i < 40; i++)
+						{
+							canBeSolved = NakedSingle.getInstance().solve(gameState);
+							if(canBeSolved == true)
+								break;
+							canBeSolved = HiddenSingle.getInstance().solve(gameState);
+							if(canBeSolved == true)
+								break;
+						}
+
+						return canBeSolved;
 					}
 					else
 						if (difficultyLevel == VERY_HARD)
 						{
-							NakedSingle.getInstance().solve(gameState);
-							HiddenSingle.getInstance().solve(gameState);
+							for (int i = 0; i < 40; i++)
+							{
+								canBeSolved = NakedSingle.getInstance().solve(gameState);
+								if(canBeSolved == true)
+									break;
+								canBeSolved = HiddenSingle.getInstance().solve(gameState);
+								if(canBeSolved == true)
+									break;
+							}
+
+							return canBeSolved;
 						}
 		return canBeSolved;
 	}
