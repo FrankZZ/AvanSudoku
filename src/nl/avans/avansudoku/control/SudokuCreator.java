@@ -3,19 +3,12 @@ package nl.avans.avansudoku.control;
 import java.util.Random;
 
 import android.util.Log;
-
 import nl.avans.avansudoku.model.*;
 import nl.avans.avansudoku.model.solvers.NakedSingle;
+import nl.avans.avansudoku.model.solvers.SudokuSolver;
 
 public class SudokuCreator implements GameCreator
 {
-
-	private int[]			sudokuContent	= { 1, 4, 5, 3, 2, 7, 6, 9, 8, 8,
-			3, 9, 6, 5, 4, 1, 2, 7, 6, 7, 2, 9, 1, 8, 5, 4, 3, 4, 9, 6, 1, 8,
-			5, 3, 7, 2, 2, 1, 8, 4, 7, 3, 9, 5, 6, 7, 5, 3, 2, 9, 6, 4, 8, 1,
-			3, 6, 7, 5, 4, 2, 8, 1, 9, 9, 8, 4, 7, 6, 1, 2, 3, 5, 5, 2, 1, 8,
-			3, 9, 7, 6, 4					};
-
 	private SudokuGameState	gameState;
 
 	public SudokuCreator()
@@ -26,13 +19,25 @@ public class SudokuCreator implements GameCreator
 	@Override
 	public void CreateGame()
 	{
-		generateTiles();
-		//digHoles();
+		//generateTiles();
+		createDemoField();
+		digHoles(1); //1 for very easy
 	}
 
-	public SudokuGameState getGameState()
+	public Tile[] createDemoField()
 	{
-		return gameState;
+		Tile[] demoField = new Tile[81];
+		int[]	sudokuContent	= { 1, 4, 5, 3, 2, 7, 6, 9, 8, 8,
+				3, 9, 6, 5, 4, 1, 2, 7, 6, 7, 2, 9, 1, 8, 5, 4, 3, 4, 9, 6, 1, 8,
+				5, 3, 7, 2, 2, 1, 8, 4, 7, 3, 9, 5, 6, 7, 5, 3, 2, 9, 6, 4, 8, 1,
+				3, 6, 7, 5, 4, 2, 8, 1, 9, 9, 8, 4, 7, 6, 1, 2, 3, 5, 5, 2, 1, 8,
+				3, 9, 7, 6, 4};
+		
+		for(int i = 0; i < 81; i++)
+		{
+			demoField[i] = new Tile(i, sudokuContent[i], false, 0);
+		}
+		return demoField;
 	}
 
 	public void generateTiles()
@@ -118,11 +123,13 @@ public class SudokuCreator implements GameCreator
 			}
 		}
 
-	public void digHoles()
+	public void digHoles(int difficultyLevel)
 	{
+		SudokuSolver suSolver = SudokuSolver.getInstance();
 		Random rand = new Random();
 
-		NakedSingle sol = NakedSingle.getInstance();
+		suSolver.setDifficultyLevel(difficultyLevel);
+		suSolver.solve(gameState);
 
 		int i, j, dug = 0;
 
@@ -140,7 +147,7 @@ public class SudokuCreator implements GameCreator
 				// Een gat maken
 				gameState.setTileValue(i, j, 0);
 
-				if (sol.solve(gameState))
+				if (suSolver.solve(gameState))
 				{
 					dug++;
 				}
@@ -152,6 +159,11 @@ public class SudokuCreator implements GameCreator
 				}
 			}
 		}
+	}
+
+	public SudokuGameState getGameState()
+	{
+		return gameState;
 	}
 
 }

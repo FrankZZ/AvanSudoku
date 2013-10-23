@@ -10,8 +10,6 @@ public interface GameState
 	public abstract void addUndoAction(Tile tile);
 
 	public abstract void resetToStartState();
-
-	//public abstract Tile retrieveUndoAction();
 	
 	public abstract void undoLastAction();
 
@@ -22,9 +20,6 @@ public interface GameState
 	public abstract void setTileValue(int x, int y, int value); 
 	 
 	public abstract Tile getTile(int x, int y);
-	
-	// Don't use this. It will mess up the candidate logic. Use setValue instead.
-//	public abstract void setTile( int x, int y, Tile tile );
 
 	public abstract Tile[] getRow(int y);
 
